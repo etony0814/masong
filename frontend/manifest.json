@@ -1,0 +1,14 @@
+{
+  "name": "肉鬆的生活日誌",
+  "short_name": "肉鬆日誌",
+  "description": "記錄邊境牧羊犬肉鬆的成長點滴",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDF8F3",
+  "theme_color": "#C47A4E",
+  "orientation": "any",
+  "icons": [
+    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><text y='85%' font-size='150'>🐾</text></svg>", "sizes": "192x192", "type": "image/svg+xml" },
+    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><text y='85%' font-size='400'>🐾</text></svg>", "sizes": "512x512", "type": "image/svg+xml" }
+  ]
+}

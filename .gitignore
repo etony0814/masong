@@ -1,0 +1,13 @@
+# .gitignore
+node_modules/
+backend/data/*.db
+backend/uploads/*
+backend/uploads/*/*
+*.log
+.DS_Store
+*.js
+!server.js
+!database.js
+!package.json
+!package-lock.json
+.claude/

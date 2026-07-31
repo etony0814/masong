@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "express": "^4.21.0",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "sql.js": "^1.14.1"
+  },
+  "main": "server.js",
+  "name": "肉鬆生活日誌後端",
+  "version": "1.0.0",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "description": "肉鬆的生活日誌網站後端服務"
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#C47A4E" id="themeColor">
+  <meta name="description" content="肉鬆的生活日誌 — 記錄邊境牧羊犬肉鬆的每一刻成長">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta property="og:title" content="🐕 肉鬆的生活日誌">
+  <meta property="og:description" content="記錄邊境牧羊犬肉鬆的成長點滴">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cellipse cx=%2750%27 cy=%2758%27 rx=%2735%27 ry=%2732%27 fill=%27%232C2C2C%27/%3E%3Cellipse cx=%2728%27 cy=%2728%27 rx=%2712%27 ry=%2718%27 fill=%27%232C2C2C%27/%3E%3Cellipse cx=%2772%27 cy=%2728%27 rx=%2712%27 ry=%2718%27 fill=%27%232C2C2C%27/%3E%3Cellipse cx=%2728%27 cy=%2728%27 rx=%277%27 ry=%2712%27 fill=%27%23FFD5D5%27/%3E%3Cellipse cx=%2772%27 cy=%2728%27 rx=%277%27 ry=%2712%27 fill=%27%23FFD5D5%27/%3E%3Cellipse cx=%2750%27 cy=%2762%27 rx=%2720%27 ry=%2717%27 fill=%27white%27/%3E%3Cellipse cx=%2740%27 cy=%2748%27 rx=%278%27 ry=%279%27 fill=%27white%27/%3E%3Cellipse cx=%2760%27 cy=%2748%27 rx=%278%27 ry=%279%27 fill=%27white%27/%3E%3Ccircle cx=%2741%27 cy=%2748%27 r=%275%27 fill=%27%232C2C2C%27/%3E%3Ccircle cx=%2759%27 cy=%2748%27 r=%275%27 fill=%27%232C2C2C%27/%3E%3Ccircle cx=%2742.5%27 cy=%2746.5%27 r=%271.8%27 fill=%27white%27/%3E%3Ccircle cx=%2760.5%27 cy=%2746.5%27 r=%271.8%27 fill=%27white%27/%3E%3Cellipse cx=%2750%27 cy=%2768%27 rx=%276%27 ry=%274%27 fill=%27%231A1A1A%27/%3E%3Cpath d=%27M46 70 Q50 75 54 70%27 stroke=%27%231A1A1A%27 stroke-width=%271.5%27 fill=%27none%27 stroke-linecap=%27round%27/%3E%3Cellipse cx=%2750%27 cy=%2773%27 rx=%273.5%27 ry=%273%27 fill=%27%23FF8C8C%27/%3E%3Cellipse cx=%2736%27 cy=%2758%27 rx=%276%27 ry=%274%27 fill=%27%23FFB5B5%27 opacity=%270.6%27/%3E%3Cellipse cx=%2764%27 cy=%2758%27 rx=%276%27 ry=%274%27 fill=%27%23FFB5B5%27 opacity=%270.6%27/%3E%3C/svg%3E" type="image/svg+xml">
+  <title>🐕 肉鬆的生活日誌</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo"><span class="logo-icon">🐾</span><a href="#home" onclick="navigateTo('home');return false;" style="color:inherit;text-decoration:none;">肉鬆的生活日誌</a></div>
+      <nav class="nav" id="mainNav">
+        <a href="#home" class="nav-link active" data-section="home"><i class="fas fa-home"></i> 首頁</a>
+        <a href="#timeline" class="nav-link" data-section="timeline"><i class="fas fa-clock"></i> 時間軸</a>
+        <a href="#photos" class="nav-link" data-section="photos"><i class="fas fa-camera"></i> 照片牆</a>
+        <a href="#videos" class="nav-link" data-section="videos"><i class="fas fa-video"></i> 影片</a>
+        <a href="#add" class="nav-link btn-add auth-only" data-section="add"><i class="fas fa-plus"></i> 新增記錄</a>
+        <button class="auth-btn" id="authBtn" title="登入/登出">
+          <i class="fas fa-lock"></i>
+        </button>
+      </nav>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 首頁 -->
+    <section id="home" class="section active">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="dog-avatar" id="avatarContainer">
+            <img src="images/meSongs.jpg" alt="肉鬆" class="avatar" id="avatarImg">
+            <span class="status-dot"></span>
+            <label class="avatar-edit-btn auth-only" for="avatarInput">
+              <i class="fas fa-camera"></i>
+            </label>
+            <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+          </div>
+          <div class="hero-text">
+            <h2 class="<h2 class="hero-title">大家好，我是小可愛<span class="hero-name">肉鬆</span> 🐾</h2>
+            <p class="subtitle" id="ageLine">邊境牧羊犬 · 正在成長中 <span class="hero-bounce-emoji">🌱</span></p>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-num" id="statMemories">—</span>
+                <span class="stat-label">生活記錄</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num" id="statPhotos">—</span>
+                <span class="stat-label">照片</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num" id="statVideos">—</span>
+                <span class="stat-label">影片</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num" id="statMilestones">—</span>
+                <span class="stat-label">里程碑</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- 紀念日提醒 -->
+        <div id="anniversarySection" class="anniversary-section" style="display:none;">
+          <div class="anniversary-card" id="anniversaryCard">
+            <i class="fas fa-bell"></i>
+            <span id="anniversaryText"></span>
+          </div>
+        </div>
+
+        <!-- 最新記錄 -->
+        <div class="section-header">
+          <h3><i class="fas fa-paw"></i> 最新記錄</h3>
+          <a href="#timeline" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="memories-grid" id="latestMemories">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+
+        <!-- 里程碑 -->
+        <div class="section-header" style="margin-top: 3rem;">
+          <h3><i class="fas fa-trophy"></i> 里程碑</h3>
+          <button class="btn-small auth-only" onclick="requireAuth(() => showMilestoneModal())"><i class="fas fa-plus"></i> 新增里程碑</button>
+        </div>
+        <div class="milestones-list" id="milestonesList">
+          <div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+
+        <!-- 精選照片 -->
+        <div class="section-header" style="margin-top: 3rem;">
+          <h3><i class="fas fa-images"></i> 精選照片</h3>
+        </div>
+        <div class="photo-preview-grid" id="photoPreview">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+
+        <!-- 匯出按鈕（僅登入者可見） -->
+        <div class="export-section auth-only" style="text-align:center; padding: 24px 0 0; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <button class="btn-secondary export-btn" onclick="exportData('json')"><i class="fas fa-file-code"></i> 匯出 JSON</button>
+          <button class="btn-secondary export-btn" onclick="exportData('csv')"><i class="fas fa-file-csv"></i> 匯出 CSV</button>
+          <button class="btn-secondary export-btn" onclick="exportData('db')"><i class="fas fa-database"></i> 下載資料庫</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 時間軸 -->
+    <section id="timeline" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-clock"></i> 時間軸</h2>
+          <button class="btn-primary auth-only" onclick="requireAuth(() => navigateTo('add'))"><i class="fas fa-plus"></i> 新增記錄</button>
+        </div>
+        <!-- 搜尋列 -->
+        <div class="search-bar">
+          <div class="search-row">
+            <div class="search-input-wrap">
+              <i class="fas fa-search"></i>
+              <input type="text" id="searchInput" placeholder="搜尋標題或內容...">
+            </div>
+            <select id="filterCategory">
+              <option value="">全部分類</option>
+              <option value="daily">📅 日常</option>
+              <option value="health">🏥 健康</option>
+              <option value="play">🎾 玩耍</option>
+              <option value="training">🎓 訓練</option>
+              <option value="travel">🚗 外出</option>
+              <option value="food">🍖 美食</option>
+            </select>
+            <select id="filterMood">
+              <option value="">所有心情</option>
+              <option value="happy">😊 開心</option>
+              <option value="excited">🤩 興奮</option>
+              <option value="sleepy">😴 困倦</option>
+              <option value="playful">🎾 調皮</option>
+              <option value="sick">🤒 不舒服</option>
+              <option value="shy">🙈 害羞</option>
+            </select>
+          </div>
+          <div class="filter-row">
+            <input type="date" id="filterDateFrom" title="從">
+            <span class="filter-sep">〜</span>
+            <input type="date" id="filterDateTo" title="至">
+            <button class="btn-small" onclick="clearFilters()"><i class="fas fa-undo"></i> 清除</button>
+          </div>
+        </div>
+        <div class="timeline" id="timelineContainer">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 照片牆 -->
+    <section id="photos" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-camera"></i> 照片牆</h2>
+          <label class="btn-primary upload-trigger auth-only" onclick="requireAuth(() => document.getElementById('photoUpload').click())">
+            <i class="fas fa-upload"></i> 上傳照片
+            <input type="file" id="photoUpload" accept="image/*" multiple style="display: none;">
+          </label>
+        </div>
+        <div class="photo-gallery" id="photoGallery">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 影片牆 -->
+    <section id="videos" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-video"></i> 影片</h2>
+          <label class="btn-primary upload-trigger auth-only" onclick="requireAuth(() => document.getElementById('videoUpload').click())">
+            <i class="fas fa-upload"></i> 上傳影片
+            <input type="file" id="videoUpload" accept="video/*" multiple style="display: none;">
+          </label>
+        </div>
+        <div class="video-gallery" id="videoGallery">
+          <div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 新增/編輯記錄 -->
+    <section id="add" class="section">
+      <div class="container">
+        <div class="form-card">
+          <h2><i class="fas fa-pen-to-square"></i> <span id="formTitle">新增生活記錄</span></h2>
+          <form id="memoryForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="memoryTitle">標題</label>
+                <input type="text" id="memoryTitle" placeholder="例如：第一次去公園" required>
+              </div>
+              <div class="form-group">
+                <label for="memoryDate">日期</label>
+                <input type="date" id="memoryDate" required>
+              </div>
+              <div class="form-group">
+                <label for="memoryMood">心情</label>
+                <select id="memoryMood">
+                  <option value="happy">😊 開心</option>
+                  <option value="excited">🤩 興奮</option>
+                  <option value="sleepy">😴 困倦</option>
+                  <option value="playful">🎾 調皮</option>
+                  <option value="sick">🤒 不舒服</option>
+                  <option value="shy">🙈 害羞</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="memoryCategory">分類</label>
+                <select id="memoryCategory">
+                  <option value="daily">📅 日常</option>
+                  <option value="health">🏥 健康</option>
+                  <option value="play">🎾 玩耍</option>
+                  <option value="training">🎓 訓練</option>
+                  <option value="travel">🚗 外出</option>
+                  <option value="food">🍖 美食</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="memoryWeight">體重 (kg)</label>
+                <input type="number" id="memoryWeight" step="0.1" placeholder="例如：5.2">
+              </div>
+            </div>
+            <div class="form-group full" style="margin-top:16px;">
+              <label for="memoryContent">生活點滴</label>
+              <textarea id="memoryContent" rows="5" placeholder="記錄今天的點滴..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>上傳照片（可多張）</label>
+              <div class="upload-area" id="photoDropZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>點擊或拖曳照片至此</p>
+                <input type="file" id="memoryPhotos" accept="image/*" multiple>
+              </div>
+              <div class="preview-list" id="photoPreviewList"></div>
+            </div>
+            <div class="form-group">
+              <label>上傳影片（可多支）</label>
+              <div class="upload-area" id="videoDropZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>點擊或拖曳影片至此</p>
+                <input type="file" id="memoryVideos" accept="video/*" multiple>
+              </div>
+              <div class="preview-list" id="videoPreviewList"></div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" onclick="navigateTo('home')">取消</button>
+              <button type="submit" class="btn-primary"><i class="fas fa-save"></i> 儲存記錄</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 登入 Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content login-modal">
+      <h3><i class="fas fa-lock"></i> 需要登入</h3>
+      <p class="login-hint">請輸入密碼以繼續操作</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginPassword">密碼</label>
+          <input type="password" id="loginPassword" placeholder="請輸入密碼" required autofocus>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" onclick="closeLoginModal()">取消</button>
+          <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> 登入</button>
+        </div>
+      </form>
+      <p class="login-tip">提示：密碼為 mesong2024</p>
+    </div>
+  </div>
+
+  <!-- 照片懸浮窗 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+    <button class="lightbox-prev" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-next" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <!-- 里程碑Modal -->
+  <div class="modal" id="milestoneModal">
+    <div class="modal-content">
+      <h3 id="milestoneModalTitle"><i class="fas fa-trophy"></i> 新增里程碑</h3>
+      <form id="milestoneForm">
+        <div class="form-group">
+          <label>標題</label>
+          <input type="text" id="milestoneTitle" placeholder="例如：第一次學會握手" required>
+        </div>
+        <div class="form-group">
+          <label>描述</label>
+          <textarea id="milestoneDesc" rows="3" placeholder="記錄這個里程碑的細節..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>日期</label>
+            <input type="date" id="milestoneDate" required>
+          </div>
+          <div class="form-group">
+            <label>圖示</label>
+            <select id="milestoneIcon">
+              <option value="🌟">🌟 星星</option>
+              <option value="🏆">🏆 獎盃</option>
+              <option value="🎂">🎂 生日</option>
+              <option value="🐾">🐾 爪印</option>
+              <option value="❤️">❤️ 愛心</option>
+              <option value="🎓">🎓 畢業</option>
+              <option value="✈️">✈️ 旅行</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" onclick="closeMilestoneModal()">取消</button>
+          <button type="submit" class="btn-primary">儲存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast通知 -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">操作成功！</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
