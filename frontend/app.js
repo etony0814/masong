@@ -37,7 +37,7 @@ document.querySelectorAll('.view-all').forEach(link => {
 // ===== 通用 HTTP =====
 async function apiFetch(url, options = {}) {
   const res = await fetch(url, {
-    headers: { 'Content-Type': 'application/json' },
+    headers: options.headers || { 'Content-Type': 'application/json' },
     ...options,
   });
   if (!res.ok) {
@@ -128,7 +128,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
   try {
     const res = await fetch(`${API}/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: options.headers || { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password })
     });
     const data = await res.json();
@@ -490,7 +490,14 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
     form.append('photo', photoFiles[i]);
     form.append('memory_id', memoryId);
     form.append('order_index', i);
-    await fetch(`${API}/photos`, { method: 'POST', body: form });
+    try {
+      const res = await fetch(`${API}/photos`, { method: 'POST', body: form });
+      if (!res.ok) {
+        const data = await res.json();
+        if (res.status === 401) { showLoginModal(); return; }
+        console.error('Photo upload failed:', data.error);
+      }
+    } catch(e) { console.error('Photo upload error:', e); }
   }
 
   // 上傳影片
@@ -499,7 +506,14 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
     const form = new FormData();
     form.append('video', file);
     form.append('memory_id', memoryId);
-    await fetch(`${API}/videos`, { method: 'POST', body: form });
+    try {
+      const res = await fetch(`${API}/videos`, { method: 'POST', body: form });
+      if (!res.ok) {
+        const data = await res.json();
+        if (res.status === 401) { showLoginModal(); return; }
+        console.error('Video upload failed:', data.error);
+      }
+    } catch(e) { console.error('Video upload error:', e); }
   }
 
   e.target.reset();

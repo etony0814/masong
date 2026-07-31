@@ -12,7 +12,11 @@ const PORT = process.env.PORT || 3000;
 const PASSWORD = '920412';
 
 app.use(cors());
-app.use(express.json());
+// 自定義 JSON body parser：跳過 multipart 請求
+app.use((req, res, next) => {
+  if (req.headers['content-type']?.includes('multipart')) return next();
+  express.json()(req, res, next);
+});
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
