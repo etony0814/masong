@@ -6,8 +6,7 @@ backend/uploads/*/*
 *.log
 .DS_Store
 *.js
-!server.js
-!database.js
-!package.json
-!package-lock.json
+!backend/server.js
+!backend/database.js
+frontend/*.js
 .claude/
