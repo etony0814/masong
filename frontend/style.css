@@ -1396,7 +1396,7 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.hero-title { font-size: 2.2rem; font-weight: 800; color: #F0EDE6; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; animation: titlePulse 3s ease-in-out infinite;
+.hero-title { font-size: 2.2rem; font-weight: 800; color: #F0EDE6; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-start; animation: titlePulse 3s ease-in-out infinite;
 }
 .hero-name {
   background: linear-gradient(135deg, #FF6B35 0%, #FF9F8A 50%, #FFD4B8 100%);
