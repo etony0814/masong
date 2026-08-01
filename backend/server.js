@@ -1,4 +1,4 @@
-﻿const express = require('express');
+const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
@@ -330,12 +330,20 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
     fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
     fs.writeFileSync(DB_PATH, Buffer.from(dbData));
     zip.getEntries()
-      .filter(e => e.entryName.startsWith('uploads/') && !e.isDirectory)
+      .filter(e => e.entryName.startsWith('uploads/') && !e.directory)
       .forEach(entry => {
         const targetPath = path.join(__dirname, 'uploads', entry.entryName.replace('uploads/', ''));
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
         fs.writeFileSync(targetPath, Buffer.from(entry.getData()));
       });
+    const avatarEntry = zip.getEntries().find(e => e.entryName === 'frontend/images/avatar.jpg');
+    if (avatarEntry && !avatarEntry.directory) {
+      const avatarDir = path.join(__dirname, '../frontend/images');
+      fs.mkdirSync(avatarDir, { recursive: true });
+      fs.writeFileSync(path.join(avatarDir, 'avatar.jpg'), Buffer.from(avatarEntry.getData()));
+    }
+    await db.close();
+    await db.close();
     await db.init();
     res.json({ success: true });
   } catch (e) {
@@ -345,7 +353,6 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
 });
 
 async function start() {
-  await db.init();
   app.listen(PORT, () => console.log(`🐕 肉鬆的生活日誌 → http://localhost:${PORT}`));
 }
 start();
