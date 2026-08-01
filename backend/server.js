@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
@@ -76,6 +76,7 @@ const avatarUpload = multer({
 });
 
 const AVATAR_PATH = path.join(__dirname, '../frontend/images/avatar.jpg');
+const DB_PATH = path.join(__dirname, "data", "肉鬆的生活日誌.db");
 
 // ── 登入驗證 ──
 app.post('/api/login', (req, res) => {
@@ -322,13 +323,12 @@ app.get('/api/export/backup', requireAuth, (req, res) => {
 const backupUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200 * 1024 * 1024 } });
 app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async (req, res) => {
   try {
-    const SQL = await initSqlJs();
-    new SQL.Database(req.file.buffer);
     const zip = new AdmZip(req.file.buffer);
     const dbFiles = zip.getEntries().filter(e => e.entryName.endsWith('.db'));
     if (dbFiles.length === 0) return res.status(400).json({ error: '備份檔案中未找到 .db 檔案' });
+    const dbData = dbFiles[0].getData();
     fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-    fs.writeFileSync(DB_PATH, Buffer.from(dbFiles[0].getData()));
+    fs.writeFileSync(DB_PATH, Buffer.from(dbData));
     zip.getEntries()
       .filter(e => e.entryName.startsWith('uploads/') && !e.isDirectory)
       .forEach(entry => {
@@ -338,6 +338,7 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
       });
     res.json({ success: true });
   } catch (e) {
+    console.error(e);
     res.status(400).json({ error: '備份檔案格式錯誤，請上傳 .zip 備份檔' });
   }
 });
@@ -347,3 +348,5 @@ async function start() {
   app.listen(PORT, () => console.log(`🐕 肉鬆的生活日誌 → http://localhost:${PORT}`));
 }
 start();
+
+
