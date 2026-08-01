@@ -2,7 +2,6 @@
    肉鬆的生活日誌 — 溫馨配色系統 v2
    優化目標：舒服、溫馨、友善閱讀
    ═══════════════════════════════════════════ */
-
 /* ── CSS 變數 ── */
 :root {
   /* 主色 - 溫暖焦糖 */
@@ -11,58 +10,47 @@
   --primary-dark:   #D4521A;
   --primary-glow:   rgba(255,107,53,0.25);
   --primary-subtle: rgba(255,107,53,0.15);
-
   /* 輔助色 - 薄荷綠 */
   --secondary:     #7C3AED;
   --secondary-lt:  #A88AFA;
   --secondary-sub: rgba(124,58,237,0.25);
-
   /* 點綴色 */
   --accent:        #00D4AA;
   --accent-lt:     #7FFFD4;
-
   /* 狀態色 */
   --success:   #00D4AA;
   --warning:   #FFB627;
   --danger:    #FF4757;
-
   /* 背景層級 */
   --bg:          #0F0F14;
   --bg-warm:     #1E1E2C;
   --bg-card:     #1A1A28;
   --bg-muted:    #1A1A28;
   --bg-elevated: #252535;
-
   /* 文字層級 */
   --text:        #F0EDE6;
   --text-mid:    #B8B0A8;
   --text-light:  #D4C8C0;
   --text-faint:  #8A8088;
-
   /* 邊框 */
   --border:     #4A4A5C;
   --border-lt:  #3A3A4C;
-
   /* 陰影 - 暖調 */
   --shadow-sm:    0 2px 8px rgba(0,0,0,0.4);
   --shadow:       0 4px 20px rgba(0,0,0,0.5);
   --shadow-md:    0 8px 32px rgba(0,0,0,0.6);
   --shadow-hover: 0 12px 40px rgba(0,0,0,0.7);
-
   /* 圓角 */
   --radius:    20px;
   --radius-sm: 14px;
   --radius-xs: 10px;
-
   /* 動效 */
   --ease:       cubic-bezier(0.4, 0, 0.2, 1);
   --transition: all 0.26s var(--ease);
 }
-
 /* ── 重置與基礎 ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-
 body {
   font-family: 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
   background: #0F0F14;
@@ -71,9 +59,7 @@ body {
   min-height: 100vh;
   font-size: 15px;
 }
-
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
 /* ═══════════════════════════════
    Header
    ═══════════════════════════════ */
@@ -102,7 +88,6 @@ body {
 }
 .logo-link:hover { text-decoration: underline; cursor: pointer; }
 .logo h1 { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); letter-spacing: 0.02em; }
-
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav-link {
   padding: 7px 16px;
@@ -131,7 +116,6 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 5px 18px rgba(212,82,26,0.35);
 }
-
 .menu-toggle {
   display: none;
   background: none;
@@ -141,7 +125,6 @@ body {
   color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   padding: 6px;
 }
-
 /* ═══════════════════════════════
    Section 頁面區塊
    ═══════════════════════════════ */
@@ -152,12 +135,10 @@ body {
   animation: fadeIn 0.3s ease;
 }
 .section.active { display: block; }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -166,7 +147,6 @@ body {
 }
 .section-header h2 { font-size: 1.25rem; font-weight: 700; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
 .section-header h3 { font-size: 1.05rem; font-weight: 600; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
-
 /* ═══════════════════════════════
    Buttons 按鈕
    ═══════════════════════════════ */
@@ -191,7 +171,6 @@ body {
   box-shadow: 0 6px 20px rgba(212,82,26,0.32);
 }
 .btn-primary:active { transform: translateY(0); }
-
 .btn-secondary {
   background: #2A2A3A;
   color: #F0EDE6;
@@ -204,7 +183,6 @@ body {
   transition: var(--transition);
 }
 .btn-secondary:hover { background: #3A3A4C; color: #FFD4B8; }
-
 .btn-small {
   background: var(--secondary-lt);
   color: #2D4A38;
@@ -217,7 +195,6 @@ body {
   transition: var(--transition);
 }
 .btn-small:hover { background: var(--secondary); color: white; }
-
 .btn-danger {
   background: rgba(212,114,106,0.10);
   color: var(--danger);
@@ -230,7 +207,6 @@ body {
   transition: var(--transition);
 }
 .btn-danger:hover { background: var(--danger); color: white; }
-
 .btn-edit-sm {
   background: var(--secondary-sub);
   color: var(--secondary);
@@ -244,9 +220,7 @@ body {
   margin-right: 4px;
 }
 .btn-edit-sm:hover { background: var(--secondary); color: white; }
-
 .milestone-actions { display: flex; gap: 6px; align-items: center; }
-
 .view-all {
   color: var(--primary);
   text-decoration: none;
@@ -258,7 +232,6 @@ body {
   transition: var(--transition);
 }
 .view-all:hover { color: var(--primary-dark); gap: 7px; }
-
 /* ═══════════════════════════════
    Hero 首頁橫幅
    ═══════════════════════════════ */
@@ -294,7 +267,6 @@ body {
   position: relative;
   z-index: 1;
 }
-
 /* 頭像 */
 .dog-avatar { position: relative; flex-shrink: 0; }
 .avatar {
@@ -307,7 +279,6 @@ body {
   transition: var(--transition);
 }
 .dog-avatar:hover .avatar { transform: scale(1.03) rotate(1deg); }
-
 .status-dot {
   position: absolute;
   bottom: 8px;
@@ -319,8 +290,6 @@ body {
   border: 3px solid white;
   box-shadow: 0 0 0 3px rgba(107,158,120,0.2);
 }
-
-
 /* 標題編輯按鈕 */
 .hero-edit-btn {
   background: none;
@@ -383,7 +352,6 @@ body {
   pointer-events: auto;
 }
 .avatar-edit-btn:hover { transform: scale(1.12) !important; background: var(--primary-dark); }
-
 /* Hero 文字區 */
 .hero-text { flex: 1; }
 .hero-text h2 {
@@ -393,13 +361,7 @@ body {
   margin-bottom: 6px;
   letter-spacing: -0.01em;
 }
-.subtitle {
-  color: #6D4C41;
-  margin-bottom: 24px;
-  font-size: 0.95rem;
-  font-weight: 400;
-}
-
+.subtitle { color: #6D4C41; margin-bottom: 24px; font-size: 1.1rem; font-weight: 700; }
 /* 統計卡片 */
 .stats-grid { display: flex; gap: 12px; flex-wrap: wrap; }
 .stat-card {
@@ -428,7 +390,6 @@ body {
   letter-spacing: 0.03em;
   margin-top: 2px;
 }
-
 /* ═══════════════════════════════
    Memory Cards 記錄卡片
    ═══════════════════════════════ */
@@ -457,7 +418,6 @@ body {
   padding: 14px 16px 0;
   flex-wrap: wrap;
 }
-
 /* 心情標籤 */
 .mood-tag {
   padding: 3px 10px;
@@ -471,7 +431,6 @@ body {
 .mood-playful { background: #D1FAE5; color: #065F46; }
 .mood-sick    { background: #FEE2E2; color: #991B1B; }
 .mood-shy     { background: #F3E8FF; color: #6B21A8; }
-
 .category-tag {
   padding: 3px 10px;
   background: var(--bg-muted);
@@ -480,7 +439,6 @@ body {
   font-weight: 500;
   color: #B8B0A8;
 }
-
 .memory-card h3 {
   padding: 8px 16px;
   font-size: 1rem;
@@ -516,7 +474,6 @@ body {
   gap: 8px;
   padding: 0 16px 14px;
 }
-
 /* ═══════════════════════════════
    Timeline 時間軸
    ═══════════════════════════════ */
@@ -551,14 +508,14 @@ body {
   margin-bottom: 8px;
   letter-spacing: 0.04em;
 }
-.timeline-content {
+.timeline-content { 
   background: var(--bg-card);
   border-radius: var(--radius);
   padding: 18px 20px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.5);
   border: 1px solid var(--border-lt);
   transition: var(--transition);
-}
+  p { font-size: 1rem; font-weight: 500; } }
 .timeline-content:hover {
   box-shadow: var(--shadow);
   border-color: var(--primary-light);
@@ -596,7 +553,6 @@ body {
   border: 1px solid var(--border);
 }
 .timeline-actions { margin-top: 12px; }
-
 /* ═══════════════════════════════
    Photo Gallery 照片牆
    ═══════════════════════════════ */
@@ -627,7 +583,6 @@ body {
   transition: transform 0.4s var(--ease);
 }
 .photo-item:hover img { transform: scale(1.07); }
-
 .photo-item-overlay {
   position: absolute;
   inset: 0;
@@ -657,14 +612,12 @@ body {
   font-size: 0.72rem;
 }
 .photo-item-overlay .btn-danger:hover { background: var(--danger); }
-
 .photo-preview-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 12px;
 }
 .photo-preview-grid .photo-item { aspect-ratio: 1; }
-
 /* ═══════════════════════════════
    Video Gallery 影片牆
    ═══════════════════════════════ */
@@ -707,7 +660,6 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 /* ═══════════════════════════════
    Milestones 里程碑
    ═══════════════════════════════ */
@@ -791,22 +743,13 @@ body {
   display: inline-block;
   letter-spacing: 0.02em;
 }
-.milestone-body {
-  padding: 0 22px 16px;
-  font-size: 0.92rem;
-  color: #D4C8C0;
-  line-height: 1.7;
-  border-top: 1px dashed var(--border);
-  margin-top: 0;
-  padding-top: 14px;
-}
+.milestone-body { padding: 0 22px 16px; font-size: 1.05rem; color: #D4C8C0; line-height: 1.7; border-top: 1px dashed var(--border); margin-top: 0; padding-top: 14px; font-weight: 600; }
 .milestone-actions {
   display: flex;
   justify-content: flex-end;
   gap: 6px;
   padding: 0 22px 16px;
 }
-
 /* ═══════════════════════════════
    Form 表單
    ═══════════════════════════════ */
@@ -861,7 +804,6 @@ body {
   gap: 12px;
   margin-top: 24px;
 }
-
 /* 上傳區域 */
 .upload-area {
   border: 2px dashed var(--border);
@@ -879,7 +821,6 @@ body {
 .upload-area i { font-size: 2rem; color: var(--primary-light); margin-bottom: 8px; display: block; }
 .upload-area p { font-size: 0.88rem; color: var(--text-mid); }
 .upload-area input { display: none; }
-
 .preview-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
 .preview-item {
   position: relative;
@@ -906,10 +847,8 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 .form-row { display: flex; gap: 16px; }
 .form-row .form-group { flex: 1; }
-
 /* ═══════════════════════════════
    Lightbox 圖片懸浮窗
    ═══════════════════════════════ */
@@ -969,8 +908,6 @@ body {
   font-size: 0.92rem;
   text-align: center;
 }
-
-
 /* ═══════════════════════════════
    頭像裁切器
    ═══════════════════════════════ */
@@ -1032,7 +969,6 @@ body {
   align-items: center;
   gap: 8px;
 }
-
 /* ═══════════════════════════════
    Toast 通知
    ═══════════════════════════════ */
@@ -1057,7 +993,6 @@ body {
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.success { background: var(--success); }
 .toast.error   { background: var(--danger); }
-
 /* ═══════════════════════════════
    Empty State 空狀態
    ═══════════════════════════════ */
@@ -1076,8 +1011,6 @@ body {
   font-size: 0.95rem;
   color: var(--text-faint);
 }
-
-
 /* ═══════════════════════════════
    Auth 認證
    ═══════════════════════════════ */
@@ -1104,13 +1037,11 @@ body {
   background: rgba(107,158,120,0.08);
 }
 .auth-btn.logged-in:hover { background: rgba(107,158,120,0.15); }
-
 /* auth-only: 預設隱藏，登入後顯示 */
 .auth-only { display: none !important; }
 .authenticated .auth-only { display: flex !important; }
 .authenticated .auth-only.inline { display: inline-flex !important; }
 .authenticated .auth-only.block { display: block !important; }
-
 /* login modal overlay */
 .login-modal {
   text-align: center;
@@ -1133,8 +1064,6 @@ body {
 }
 .login-modal .form-group { text-align: left; }
 .login-modal .form-actions { justify-content: center; }
-
-
 /* ── Skeleton 骨架屏 ── */
 .skeleton {
   background: linear-gradient(90deg, var(--bg-muted) 25%, var(--bg-warm) 50%, var(--bg-muted) 75%);
@@ -1143,12 +1072,10 @@ body {
   border-radius: var(--radius-xs);
 }
 .sk-card { height: 120px; }
-
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
-
 /* ── Upload Trigger ── */
 .upload-trigger {
   display: inline-flex;
@@ -1156,14 +1083,12 @@ body {
   gap: 6px;
   cursor: pointer;
 }
-
 /* ── Export Section ── */
 .export-section {
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid var(--border);
 }
-
 /* ── Dark Toggle ── */
   background: none;
   border: 2px solid var(--border);
@@ -1180,7 +1105,6 @@ body {
   flex-shrink: 0;
   margin-left: 4px;
 }
-
 /* ── Search Bar ── */
 .search-bar {
   background: var(--bg-card);
@@ -1242,7 +1166,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 .filter-sep { color: var(--text-faint); }
-
 /* ═══════════════════════════════
    Responsive 響應式
    ═══════════════════════════════ */
@@ -1274,21 +1197,19 @@ input[type=date]::-webkit-calendar-picker-indicator {
     margin-top: 4px;
     justify-content: center;
   }
-
   /* ── Hero ── */
   .hero { padding: 24px 18px; }
   .hero::before { font-size: 100px; top: -16px; right: 20px; }
   .hero-content { flex-direction: column; text-align: center; gap: 24px; }
   .hero-text { flex: none; width: 100%; }
   .hero-text h2 { font-size: 1.45rem; }
-  .subtitle { font-size: 0.88rem; margin-bottom: 18px; }
+  .subtitle { color: #6D4C41; margin-bottom: 24px; font-size: 1.1rem; font-weight: 700; }
   .stats-grid { justify-content: center; gap: 8px; }
   .stat-card { padding: 10px 14px; min-width: 76px; }
   .stat-num { font-size: 1.4rem; }
   .stat-label { font-size: 0.7rem; }
   .avatar { width: 100px; height: 100px; }
   .dog-avatar:hover .avatar { transform: scale(1.02) rotate(0deg); }
-  
 /* 標題編輯按鈕 */
 .hero-edit-btn {
   background: none;
@@ -1307,42 +1228,35 @@ input[type=date]::-webkit-calendar-picker-indicator {
   color: white;
 }
 .avatar-edit-btn { width: 32px; height: 32px; font-size: 0.78rem; }
-
   /* ── Section ── */
   .section { padding: 20px 0 48px; }
   .container { padding: 0 16px; }
   .section-header { flex-direction: column; gap: 10px; align-items: flex-start; }
   .section-header h2 { font-size: 1.1rem; }
-
   /* ── Memory Cards ── */
   .memories-grid { grid-template-columns: 1fr; gap: 14px; }
   .memory-card h3 { font-size: 0.95rem; padding: 8px 14px; }
   .memory-content { font-size: 0.85rem; padding: 4px 14px 10px; }
-
   /* ── Timeline ── */
   .timeline { padding-left: 28px; }
   .timeline::before { left: 10px; }
   .timeline-item::before { left: -24px; top: 18px; width: 10px; height: 10px; }
-  .timeline-content { padding: 14px 16px; }
+  .timeline-content {  padding: 14px 16px;   p { font-size: 1rem; font-weight: 500; } }
   .timeline-photos img { width: 64px; height: 64px; }
   .timeline-videos video { width: 200px; }
-
   /* ── Milestone Cards ── */
   .milestones-list { gap: 10px; }
   .milestone-header { padding: 12px 14px 10px; gap: 10px; }
   .milestone-icon { width: 40px; height: 40px; font-size: 1.3rem; }
   .milestone-title-area h4 { font-size: 0.95rem; }
-  .milestone-body { padding: 10px 14px; font-size: 0.86rem; }
+  .milestone-body { padding: 0 22px 16px; font-size: 1.05rem; color: #D4C8C0; line-height: 1.7; border-top: 1px dashed var(--border); margin-top: 0; padding-top: 14px; font-weight: 600; }
   .milestone-actions { padding: 0 14px 12px; }
-
   /* ── Photo Gallery ── */
   .photo-gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
   .photo-preview-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; }
   .photo-item-overlay span { font-size: 0.7rem; }
-
   /* ── Video Gallery ── */
   .video-gallery { grid-template-columns: 1fr; gap: 14px; }
-
   /* ── Form ── */
   .form-card { padding: 20px 16px; }
   .form-card h2 { font-size: 1rem; margin-bottom: 18px; }
@@ -1364,25 +1278,20 @@ input[type=date]::-webkit-calendar-picker-indicator {
     padding: 13px 20px;
     font-size: 1rem;
   }
-
   /* ── Lightbox ── */
   .lightbox-close { top: 12px; right: 12px; width: 40px; height: 40px; }
   .lightbox-prev { left: 8px; width: 40px; height: 40px; }
   .lightbox-next { right: 8px; width: 40px; height: 40px; }
-
   /* ── Modal ── */
   .modal-content { padding: 24px 20px; width: 94%; }
   .modal-content h3 { font-size: 1rem; }
-
   /* ── Empty State ── */
   .empty-state { padding: 40px 16px; }
   .empty-state i { font-size: 2.2rem; }
   .empty-state p { font-size: 0.88rem; }
-
   /* ── Body ── */
   body { font-size: 15px; }
 }
-
 /* ── 小螢幕更精細調整 ── */
 @media (max-width: 380px) {
   .stats-grid { flex-wrap: wrap; }
@@ -1390,7 +1299,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
   .stat-num { font-size: 1.25rem; }
   .photo-gallery { grid-template-columns: repeat(2, 1fr); }
 }
-
 /* ═══════════════════════════════
    Logo & Hero 狗狗元素動畫
    ═══════════════════════════════ */
@@ -1457,7 +1365,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .hero::before {
   animation: pawFloat 4s ease-in-out infinite;
 }
-
 @media (max-width: 768px) {
   .logo-dog { width: 34px; height: 34px; }
   .logo-title { font-size: 1.05rem; }
@@ -1468,7 +1375,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
 /* ==================== 視覺美化優化 ====================
    溫馨柔和的配色與排版，不影響原有功能
    ------------------------------------------------- */
-
 /* 卡片柔和陰影與懸停效果 */
 .card, .form-card, .milestone-card {
   background: #3A3A4C;
@@ -1476,32 +1382,25 @@ input[type=date]::-webkit-calendar-picker-indicator {
   box-shadow: 0 2px 8px rgba(196, 122, 78, 0.08);
   transition: all 0.3s ease;
 }
-
 .card:hover, .form-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(196, 122, 78, 0.12);
 }
-
 /* 標題文字顏色更柔和 */
 h2, h3, h4 {
   color: #E0D8D0;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-
 /* 正文文字更舒適 */
 body, p, textarea, input {
   color: #D4C8C0;
   line-height: 1.6;
 }
-
-
-
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 5px 15px rgba(196, 122, 78, 0.4);
 }
-
 .btn-secondary {
     background: #2A2A3A;
   border: 2px solid #00D4AA;
@@ -1510,12 +1409,10 @@ body, p, textarea, input {
   color: #FFD4B8;
   transition: all 0.3s ease;
 }
-
 .btn-secondary:hover {
   background: #3A3A4C;
   transform: translateY(-1px);
 }
-
 /* 上傳區域視覺強化 - 保持可點擊功能 */
 .upload-area {
   background: #FFF3E0;
@@ -1527,25 +1424,21 @@ body, p, textarea, input {
   transition: all 0.3s ease;
   position: relative;
 }
-
 .upload-area:hover {
   background: #FFE8DC;
   border-color: #FFD4B8;
   transform: scale(1.02);
 }
-
 .upload-area i {
   font-size: 3rem;
   color: #FFD4B8;
   margin-bottom: 12px;
 }
-
 .upload-area p {
   color: #B8B0A8;
   font-size: 1rem;
   margin: 0;
 }
-
 /* 時間軸與里程碑優化 */
 .timeline-item {
   background: var(--card-bg);
@@ -1555,11 +1448,9 @@ body, p, textarea, input {
   box-shadow: 0 2px 8px rgba(141, 110, 99, 0.08);
   transition: box-shadow 0.3s ease;
 }
-
 .timeline-item:hover {
   box-shadow: 0 4px 16px rgba(141, 110, 99, 0.12);
 }
-
 .milestone-card {
   background: #3A3A4C;
   border-left: 4px solid #FF6B35;
@@ -1567,7 +1458,6 @@ body, p, textarea, input {
   padding: 20px;
   margin-bottom: 16px;
 }
-
 .milestone-icon {
   font-size: 1.5rem;
   background: var(--card-bg);
@@ -1579,7 +1469,6 @@ body, p, textarea, input {
   justify-content: center;
   box-shadow: 0 2px 8px rgba(196, 122, 78, 0.15);
 }
-
 /* Toast 通知美化 - 不影響功能 */
 .toast {
   background: linear-gradient(135deg, #FF6B35, #FF9F8A);
@@ -1591,39 +1480,32 @@ body, p, textarea, input {
   opacity: 0;
   transition: all 0.3s ease;
 }
-
 .toast.show {
   transform: translateY(0);
   opacity: 1;
 }
-
 .toast.error {
   background: linear-gradient(135deg, #EF9A9A, #FFB4B4);
 }
-
 /* 回應式排版優化（手機更舒適） */
 @media (max-width: 768px) {
   body {
     font-size: 15px;
     line-height: 1.7;
   }
-  
   .hero-title {
     font-size: 1.4rem;
     text-align: left;
   }
-  
   .upload-area {
     padding: 24px;
     border-radius: 12px;
   }
-  
   .btn-primary, .btn-secondary {
     border-radius: 20px;
     padding: 10px 24px;
   }
 }
-
 /* 載入骨架屏美化 */
 .skeleton {
   background: linear-gradient(90deg, #F5F0EB 25%, #E8DCD2 50%, #F5F0EB 75%);
@@ -1631,12 +1513,10 @@ body, p, textarea, input {
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
 }
-
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
-
 .sk-card {
   height: 120px;
   margin-bottom: 12px;
@@ -1644,7 +1524,6 @@ body, p, textarea, input {
 \n\n﻿/* ==================== 視覺美化優化 ====================
    溫馨柔和的配色與排版，不影響原有功能
    ------------------------------------------------- */
-
 /* 卡片柔和陰影與懸停效果 */
 .card, .form-card, .milestone-card {
   background: #3A3A4C;
@@ -1652,32 +1531,25 @@ body, p, textarea, input {
   box-shadow: 0 2px 8px rgba(196, 122, 78, 0.08);
   transition: all 0.3s ease;
 }
-
 .card:hover, .form-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(196, 122, 78, 0.12);
 }
-
 /* 標題文字顏色更柔和 */
 h2, h3, h4 {
   color: #E0D8D0;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-
 /* 正文文字更舒適 */
 body, p, textarea, input {
   color: #D4C8C0;
   line-height: 1.6;
 }
-
-
-
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 5px 15px rgba(196, 122, 78, 0.4);
 }
-
 .btn-secondary {
     background: #2A2A3A;
   border: 2px solid #00D4AA;
@@ -1686,12 +1558,10 @@ body, p, textarea, input {
   color: #FFD4B8;
   transition: all 0.3s ease;
 }
-
 .btn-secondary:hover {
   background: #3A3A4C;
   transform: translateY(-1px);
 }
-
 /* 上傳區域視覺強化 - 保持可點擊功能 */
 .upload-area {
   background: #FFF3E0;
@@ -1703,25 +1573,21 @@ body, p, textarea, input {
   transition: all 0.3s ease;
   position: relative;
 }
-
 .upload-area:hover {
   background: #FFE8DC;
   border-color: #FFD4B8;
   transform: scale(1.02);
 }
-
 .upload-area i {
   font-size: 3rem;
   color: #FFD4B8;
   margin-bottom: 12px;
 }
-
 .upload-area p {
   color: #B8B0A8;
   font-size: 1rem;
   margin: 0;
 }
-
 /* 時間軸與里程碑優化 */
 .timeline-item {
   background: var(--card-bg);
@@ -1731,11 +1597,9 @@ body, p, textarea, input {
   box-shadow: 0 2px 8px rgba(141, 110, 99, 0.08);
   transition: box-shadow 0.3s ease;
 }
-
 .timeline-item:hover {
   box-shadow: 0 4px 16px rgba(141, 110, 99, 0.12);
 }
-
 .milestone-card {
   background: #3A3A4C;
   border-left: 4px solid #FF6B35;
@@ -1743,7 +1607,6 @@ body, p, textarea, input {
   padding: 20px;
   margin-bottom: 16px;
 }
-
 .milestone-icon {
   font-size: 1.5rem;
   background: var(--card-bg);
@@ -1755,7 +1618,6 @@ body, p, textarea, input {
   justify-content: center;
   box-shadow: 0 2px 8px rgba(196, 122, 78, 0.15);
 }
-
 /* Toast 通知美化 - 不影響功能 */
 .toast {
   background: linear-gradient(135deg, #FF6B35, #FF9F8A);
@@ -1767,39 +1629,32 @@ body, p, textarea, input {
   opacity: 0;
   transition: all 0.3s ease;
 }
-
 .toast.show {
   transform: translateY(0);
   opacity: 1;
 }
-
 .toast.error {
   background: linear-gradient(135deg, #EF9A9A, #FFB4B4);
 }
-
 /* 回應式排版優化（手機更舒適） */
 @media (max-width: 768px) {
   body {
     font-size: 15px;
     line-height: 1.7;
   }
-  
   .hero-title {
     font-size: 1.4rem;
     text-align: left;
   }
-  
   .upload-area {
     padding: 24px;
     border-radius: 12px;
   }
-  
   .btn-primary, .btn-secondary {
     border-radius: 20px;
     padding: 10px 24px;
   }
 }
-
 /* 載入骨架屏美化 */
 .skeleton {
   background: linear-gradient(90deg, #F5F0EB 25%, #E8DCD2 50%, #F5F0EB 75%);
@@ -1807,12 +1662,10 @@ body, p, textarea, input {
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
 }
-
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
-
 .sk-card {
   height: 120px;
   margin-bottom: 12px;
