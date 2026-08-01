@@ -7,19 +7,19 @@
 :root {
   /* 主色 - 溫暖焦糖 */
   --primary:        #FF6B35;
-  --primary-light:  #FF9F8A;
+  --primary-light:  #FFB89A;
   --primary-dark:   #D4521A;
-  --primary-glow:   rgba(255,107,53,0.15);
-  --primary-subtle: rgba(255,107,53,0.08);
+  --primary-glow:   rgba(255,107,53,0.25);
+  --primary-subtle: rgba(255,107,53,0.15);
 
   /* 輔助色 - 薄荷綠 */
   --secondary:     #7C3AED;
-  --secondary-lt:  #C4B5FD;
-  --secondary-sub: rgba(124,58,237,0.12);
+  --secondary-lt:  #A88AFA;
+  --secondary-sub: rgba(124,58,237,0.25);
 
   /* 點綴色 */
   --accent:        #00D4AA;
-  --accent-lt:     #A8FFF0;
+  --accent-lt:     #7FFFD4;
 
   /* 狀態色 */
   --success:   #00D4AA;
@@ -28,20 +28,20 @@
 
   /* 背景層級 */
   --bg:          #0F0F14;
-  --bg-warm:     #1A1A24;
-  --bg-card:     #1E1E2A;
-  --bg-muted:    #252533;
-  --bg-elevated: #22222F;
+  --bg-warm:     #1E1E2C;
+  --bg-card:     #1A1A28;
+  --bg-muted:    #1A1A28;
+  --bg-elevated: #252535;
 
   /* 文字層級 */
   --text:        #F0EDE6;
-  --text-mid:    #9A9090;
-  --text-light:  #6B6570;
-  --text-faint:  #4A4550;
+  --text-mid:    #B8B0A8;
+  --text-light:  #D4C8C0;
+  --text-faint:  #8A8088;
 
   /* 邊框 */
-  --border:     #353545;
-  --border-lt:  #2A2A38;
+  --border:     #4A4A5C;
+  --border-lt:  #3A3A4C;
 
   /* 陰影 - 暖調 */
   --shadow-sm:    0 2px 8px rgba(0,0,0,0.4);
@@ -108,7 +108,7 @@ body {
   padding: 7px 16px;
   border-radius: 24px;
   text-decoration: none;
-  color: #9A9090;
+  color: #E0D8D0;
   font-weight: 500;
   font-size: 0.9rem;
   transition: var(--transition);
@@ -193,7 +193,7 @@ body {
 .btn-primary:active { transform: translateY(0); }
 
 .btn-secondary {
-  background: var(--bg-muted);
+  background: #2A2A3A;
   color: #9A9090;
   border: 1px solid var(--border);
   padding: 11px 22px;
@@ -203,7 +203,7 @@ body {
   cursor: pointer;
   transition: var(--transition);
 }
-.btn-secondary:hover { background: var(--border); color: #F0EDE6; }
+.btn-secondary:hover { background: #3A3A4C; color: #FFD4B8; }
 
 .btn-small {
   background: var(--secondary-lt);
@@ -977,7 +977,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(50,30,20,0.4);
+  background: rgba(0,0,0,0.75);
   z-index: 150;
   align-items: center;
   justify-content: center;
