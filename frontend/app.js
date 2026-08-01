@@ -548,6 +548,58 @@ document.getElementById('memoryVideos').addEventListener('change', e => {
   });
 });
 
+// ===== 照片牆單獨上傳 =====
+document.getElementById('photoUpload').addEventListener('change', async e => {
+  const files = e.target.files;
+  if (!files.length) return;
+  requireAuth(async () => {
+    for (let i = 0; i < files.length; i++) {
+      const form = new FormData();
+      form.append('photo', files[i]);
+      try {
+        const res = await fetch('/api/photos', { method: 'POST', body: form });
+        if (res.ok) {
+          showToast('照片已上傳！');
+        } else {
+          const data = await res.json();
+          if (res.status === 401) showLoginModal();
+          else showToast(data.error || '上傳失敗', 'error');
+        }
+      } catch (err) {
+        showToast('上傳失敗', 'error');
+      }
+    }
+    e.target.value = '';
+    loadPhotos();
+  });
+});
+
+// ===== 影片牆單獨上傳 =====
+document.getElementById('videoUpload').addEventListener('change', async e => {
+  const files = e.target.files;
+  if (!files.length) return;
+  requireAuth(async () => {
+    for (let i = 0; i < files.length; i++) {
+      const form = new FormData();
+      form.append('video', files[i]);
+      try {
+        const res = await fetch('/api/videos', { method: 'POST', body: form });
+        if (res.ok) {
+          showToast('影片已上傳！');
+        } else {
+          const data = await res.json();
+          if (res.status === 401) showLoginModal();
+          else showToast(data.error || '上傳失敗', 'error');
+        }
+      } catch (err) {
+        showToast('上傳失敗', 'error');
+      }
+    }
+    e.target.value = '';
+    loadVideos();
+  });
+});
+
 // ===== Lightbox =====
 function showLightboxImage() {
   const photos = window._lightboxPhotos || [];
