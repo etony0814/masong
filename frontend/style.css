@@ -66,7 +66,7 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body {
   font-family: 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
   background: #0F0F14;
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   line-height: 1.8;
   min-height: 100vh;
   font-size: 15px;
@@ -93,7 +93,7 @@ body {
   justify-content: space-between;
   height: 64px;
 }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #F0EDE6; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
 .logo-icon { font-size: 1.5rem; }
 .logo-link {
   color: inherit;
@@ -138,7 +138,7 @@ body {
   border: none;
   font-size: 1.3rem;
   cursor: pointer;
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   padding: 6px;
 }
 
@@ -164,8 +164,8 @@ body {
   align-items: center;
   margin-bottom: 24px;
 }
-.section-header h2 { font-size: 1.25rem; font-weight: 700; color: #F0EDE6; }
-.section-header h3 { font-size: 1.05rem; font-weight: 600; color: #F0EDE6; }
+.section-header h2 { font-size: 1.25rem; font-weight: 700; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+.section-header h3 { font-size: 1.05rem; font-weight: 600; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
 
 /* ═══════════════════════════════
    Buttons 按鈕
@@ -389,7 +389,7 @@ body {
 .hero-text h2 {
   font-size: 1.85rem;
   font-weight: 800;
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   margin-bottom: 6px;
   letter-spacing: -0.01em;
 }
@@ -485,7 +485,7 @@ body {
   padding: 8px 16px;
   font-size: 1rem;
   font-weight: 700;
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   line-height: 1.4;
 }
 .memory-date {
@@ -570,7 +570,7 @@ body {
   flex-wrap: wrap;
   margin-bottom: 8px;
 }
-.timeline-header h3 { font-size: 1rem; font-weight: 700; color: #F0EDE6; }
+.timeline-header h3 { font-size: 1rem; font-weight: 700; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
 .timeline-desc {
   font-size: 0.88rem;
   color: #9A9090;
@@ -777,7 +777,7 @@ body {
 .milestone-title-area h4 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   margin: 0 0 6px;
   line-height: 1.4;
 }
@@ -821,7 +821,7 @@ body {
   font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 24px;
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -843,7 +843,7 @@ body {
   font-size: 0.9rem;
   font-family: inherit;
   background: var(--bg-elevated);
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   transition: var(--transition);
 }
 .form-group input:focus,
@@ -1183,7 +1183,7 @@ body {
   border-radius: var(--radius-xs);
   font-size: 0.9rem;
   background: var(--bg-elevated);
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   font-family: inherit;
 }
 .search-input-wrap input:focus {
@@ -1203,7 +1203,7 @@ body {
   border-radius: var(--radius-xs);
   font-size: 0.85rem;
   background: var(--bg-elevated);
-  color: #F0EDE6;
+  color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 .filter-sep { color: var(--text-faint); }
 
@@ -1396,7 +1396,7 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.hero-title { font-size: 2.2rem; font-weight: 800; color: #F0EDE6; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-start; animation: titlePulse 3s ease-in-out infinite;
+.hero-title { font-size: 2.2rem; font-weight: 800; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-start; animation: titlePulse 3s ease-in-out infinite;
 }
 .hero-name {
   background: linear-gradient(135deg, #FF6B35 0%, #FF9F8A 50%, #FFD4B8 100%);
