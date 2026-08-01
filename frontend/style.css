@@ -194,7 +194,7 @@ body {
 
 .btn-secondary {
   background: #2A2A3A;
-  color: #9A9090;
+  color: #F0EDE6;
   border: 1px solid var(--border);
   padding: 11px 22px;
   border-radius: 24px;
@@ -394,7 +394,7 @@ body {
   letter-spacing: -0.01em;
 }
 .subtitle {
-  color: #9A9090;
+  color: #6D4C41;
   margin-bottom: 24px;
   font-size: 0.95rem;
   font-weight: 400;
@@ -478,7 +478,7 @@ body {
   border-radius: 12px;
   font-size: 0.74rem;
   font-weight: 500;
-  color: #9A9090;
+  color: #B8B0A8;
 }
 
 .memory-card h3 {
@@ -497,7 +497,7 @@ body {
 .memory-content {
   padding: 6px 16px 12px;
   font-size: 0.88rem;
-  color: #9A9090;
+  color: #D4C8C0;
   line-height: 1.75;
 }
 .weight-tag {
@@ -573,7 +573,7 @@ body {
 .timeline-header h3 { font-size: 1rem; font-weight: 700; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
 .timeline-desc {
   font-size: 0.88rem;
-  color: #9A9090;
+  color: #B8B0A8;
   line-height: 1.8;
   margin-bottom: 12px;
 }
@@ -700,7 +700,7 @@ body {
 }
 .video-info p {
   font-size: 0.86rem;
-  color: #9A9090;
+  color: #D4C8C0;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -794,7 +794,7 @@ body {
 .milestone-body {
   padding: 0 22px 16px;
   font-size: 0.92rem;
-  color: #9A9090;
+  color: #D4C8C0;
   line-height: 1.7;
   border-top: 1px dashed var(--border);
   margin-top: 0;
@@ -832,7 +832,7 @@ body {
 .form-group label {
   font-size: 0.84rem;
   font-weight: 600;
-  color: #9A9090;
+  color: #B8B0A8;
 }
 .form-group input,
 .form-group select,
