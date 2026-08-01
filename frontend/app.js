@@ -37,7 +37,7 @@ document.querySelectorAll('.view-all').forEach(link => {
 // ===== 通用 HTTP =====
 async function apiFetch(url, options = {}) {
   const res = await fetch(url, {
-    headers: options.headers || { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' },
     ...options,
   });
   if (!res.ok) {
@@ -128,7 +128,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
   try {
     const res = await fetch(`${API}/login`, {
       method: 'POST',
-      headers: options.headers || { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password })
     });
     const data = await res.json();
