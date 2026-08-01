@@ -918,28 +918,43 @@ async function saveHeroTitle() {
 }
 
 // ===== 資料匯出 =====
-function exportData(format) {
-  if (!_isAuthenticated) {
-    showLoginModal();
-    return;
-  }
-  const urls = {
-    json: '/api/export/json',
-    csv: '/api/export/csv',
-    db: '/api/export/db'
-  };
-  const filenames = {
-    json: 'mesong-backup.json',
-    csv: 'mesong-records.csv',
-    db: 'mesong-database.db'
-  };
+// ===== 匯出全部資料（ZIP 備份） =====
+function exportBackup() {
+  if (!_isAuthenticated) { showLoginModal(); return; }
+  showToast('正在打包全部資料，請稍候...');
   const a = document.createElement('a');
-  a.href = urls[format] + '?t=' + Date.now();
-  a.download = filenames[format];
-  document.body.appendChild(a);
+  a.href = '/api/export/backup';
+  a.download = 'mesong-backup.zip';
   a.click();
-  document.body.removeChild(a);
-  showToast(`已匯出 ${filenames[format]}`);
+  showToast('匯出完成！');
+}
+
+// ===== 匯入全部資料（ZIP 備份） =====
+function importBackup() {
+  if (!_isAuthenticated) { showLoginModal(); return; }
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.zip';
+  input.onchange = async () => {
+    const file = input.files[0];
+    if (!file) return;
+    const form = new FormData();
+    form.append('backup', file);
+    showToast('正在還原，請稍候...');
+    try {
+      const res = await fetch('/api/import/backup', { method: 'POST', body: form });
+      const data = await res.json();
+      if (res.ok) {
+        showToast('資料已還原，頁面重新載入...');
+        setTimeout(() => location.reload(), 1500);
+      } else {
+        showToast(data.error || '匯入失敗', 'error');
+      }
+    } catch (e) {
+      showToast('匯入失敗', 'error');
+    }
+  };
+  input.click();
 }
 
 // ===== 頁面初始載入 =====
@@ -953,4 +968,6 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(err => console.log('SW 註冊失敗:', err));
   }
 });
+
+
 

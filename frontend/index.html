@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -109,13 +109,11 @@
           <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
         </div>
 
-        <!-- 匯出按鈕（僅登入者可見） -->
-        <div class="export-section auth-only" style="text-align:center; padding: 24px 0 0; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-          <button class="btn-secondary export-btn" onclick="exportData('json')"><i class="fas fa-file-code"></i> 匯出 JSON</button>
-          <button class="btn-secondary export-btn" onclick="exportData('csv')"><i class="fas fa-file-csv"></i> 匯出 CSV</button>
-          <button class="btn-secondary export-btn" onclick="exportData('db')"><i class="fas fa-database"></i> 下載資料庫</button>
+        <!-- 資料備份與還原（僅登入者可見） -->
+        <div class="export-section auth-only" style="text-align:center; padding: 24px 0 0; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+          <button class="btn-secondary export-btn" onclick="exportBackup()" style="background:#00D4AA;color:#0F0F14;font-weight:bold;"><i class="fas fa-file-archive"></i> 匯出全部資料</button>
+          <button class="btn-secondary export-btn" onclick="importBackup()" style="background:#7C3AED;color:#fff;font-weight:bold;"><i class="fas fa-file-import"></i> 匯入還原資料</button>
         </div>
-      </div>
     </section>
 
     <!-- 時間軸 -->
@@ -382,4 +380,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 </body>
 </html>
+
 

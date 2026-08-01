@@ -4,6 +4,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const db = require('./database');
+const initSqlJs = require('sql.js');
+const AdmZip = require('adm-zip');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -289,6 +291,55 @@ app.get('/api/export/db', requireAuth, (req, res) => {
   const buf = fs.readFileSync(dbPath);
   res.setHeader('Content-Type', 'application/octet-stream');
   sendFile(res, buf, 'mesong-database.db');
+});
+
+
+
+// ── 匯出完整備份（含資料庫與所有照片/影片）──
+app.get('/api/export/backup', requireAuth, (req, res) => {
+  const dbPath = path.join(__dirname, 'data', '肉鬆的生活日誌.db');
+  if (!fs.existsSync(dbPath)) return res.status(404).json({ error: 'DB not found' });
+  const zip = new AdmZip();
+  zip.addLocalFile(dbPath, 'data/肉鬆的生活日誌.db');
+  const uploadsDir = path.join(__dirname, 'uploads');
+  if (fs.existsSync(uploadsDir)) {
+    ['photos', 'videos'].forEach(dir => {
+      const dirPath = path.join(uploadsDir, dir);
+      if (fs.existsSync(dirPath)) {
+        fs.readdirSync(dirPath).forEach(file => {
+          zip.addLocalFile(path.join(dirPath, file), 'uploads/' + dir + '/' + file);
+        });
+      }
+    });
+  }
+  const buf = zip.toBuffer();
+  res.setHeader('Content-Type', 'application/octet-stream');
+  res.setHeader('Content-Disposition', 'attachment; filename="mesong-backup.zip"');
+  res.send(buf);
+});
+
+// ── 匯入完整備份（需登入）──
+const backupUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200 * 1024 * 1024 } });
+app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async (req, res) => {
+  try {
+    const SQL = await initSqlJs();
+    new SQL.Database(req.file.buffer);
+    const zip = new AdmZip(req.file.buffer);
+    const dbFiles = zip.getEntries().filter(e => e.entryName.endsWith('.db'));
+    if (dbFiles.length === 0) return res.status(400).json({ error: '備份檔案中未找到 .db 檔案' });
+    fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+    fs.writeFileSync(DB_PATH, Buffer.from(dbFiles[0].getData()));
+    zip.getEntries()
+      .filter(e => e.entryName.startsWith('uploads/') && !e.isDirectory)
+      .forEach(entry => {
+        const targetPath = path.join(__dirname, 'uploads', entry.entryName.replace('uploads/', ''));
+        fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+        fs.writeFileSync(targetPath, Buffer.from(entry.getData()));
+      });
+    res.json({ success: true });
+  } catch (e) {
+    res.status(400).json({ error: '備份檔案格式錯誤，請上傳 .zip 備份檔' });
+  }
 });
 
 async function start() {
