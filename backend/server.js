@@ -304,7 +304,7 @@ app.get('/api/export/backup', requireAuth, (req, res) => {
   zip.addLocalFile(dbPath, 'data/肉鬆的生活日誌.db');
   const uploadsDir = path.join(__dirname, 'uploads');
   if (fs.existsSync(uploadsDir)) {
-    ['photos', 'videos'].forEach(dir => {
+    ['photos', 'videos', 'covers'].forEach(dir => {
       const dirPath = path.join(uploadsDir, dir);
       if (fs.existsSync(dirPath)) {
         fs.readdirSync(dirPath).forEach(file => {
