@@ -869,7 +869,7 @@ async function saveAvatarCrop() {
     const form = new FormData();
     form.append('avatar', blob, 'avatar.jpg');
     try {
-      const res = await fetch('/avatar', { method: 'POST', body: form });
+      const res = await fetch('/api/avatar', { method: 'POST', body: form });
       if (res.ok) {
         loadAvatar();
         showToast('頭像已更新！');
@@ -953,3 +953,4 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(err => console.log('SW 註冊失敗:', err));
   }
 });
+
