@@ -14,6 +14,7 @@ function navigateTo(section) {
   if (section === 'timeline') loadTimeline();
   if (section === 'photos') loadPhotos();
   if (section === 'videos') loadVideos();
+  if (section === 'add') clearAddForm();
 }
 
 document.querySelectorAll('.nav-link').forEach(link => {
@@ -521,8 +522,23 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
 
   e.target.reset();
   document.getElementById('memoryDate').value = new Date().toISOString().split('T')[0];
+  clearAddForm();
   navigateTo('home');
 });
+
+// ===== 清除新增表單預覽 =====
+function clearAddForm() {
+  const photoList = document.getElementById('photoPreviewList');
+  const videoList = document.getElementById('videoPreviewList');
+  if (photoList) photoList.innerHTML = '';
+  if (videoList) videoList.innerHTML = '';
+  const photoInput = document.getElementById('memoryPhotos');
+  const videoInput = document.getElementById('memoryVideos');
+  if (photoInput) photoInput.value = '';
+  if (videoInput) videoInput.value = '';
+  const dateInput = document.getElementById('memoryDate');
+  if (dateInput && !dateInput.value) dateInput.value = new Date().toISOString().split('T')[0];
+}
 
 // ===== 照片預覽 =====
 document.getElementById('memoryPhotos').addEventListener('change', e => {
@@ -937,3 +953,9 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(err => console.log('SW 註冊失敗:', err));
   }
 });
+
+', err));
+  }
+});
+
+
