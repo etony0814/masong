@@ -1,4 +1,4 @@
-﻿const API = '/api';
+const API = '/api';
 let _isAuthenticated = false;
 let _pendingAction = null;
 
@@ -486,12 +486,12 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
   // 上傳照片
   const photoFiles = document.getElementById('memoryPhotos').files;
   for (let i = 0; i < photoFiles.length; i++) {
-    const form = new FormData();
-    form.append('photo', photoFiles[i]);
-    form.append('memory_id', memoryId);
-    form.append('order_index', i);
+    const uploadForm = new FormData();
+    uploadForm.append('photo', photoFiles[i]);
+    uploadForm.append('memory_id', memoryId);
+    uploadForm.append('order_index', i);
     try {
-      const res = await fetch(`${API}/photos`, { method: 'POST', body: form });
+      const res = await fetch(`${API}/photos`, { method: 'POST', body: uploadForm });
       if (!res.ok) {
         const data = await res.json();
         if (res.status === 401) { showLoginModal(); throw new Error("需要登入"); }
@@ -503,11 +503,11 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
   // 上傳影片
   const videoFiles = document.getElementById('memoryVideos').files;
   for (const file of videoFiles) {
-    const form = new FormData();
-    form.append('video', file);
-    form.append('memory_id', memoryId);
+    const uploadForm = new FormData();
+    uploadForm.append('video', file);
+    uploadForm.append('memory_id', memoryId);
     try {
-      const res = await fetch(`${API}/videos`, { method: 'POST', body: form });
+      const res = await fetch(`${API}/videos`, { method: 'POST', body: uploadForm });
       if (!res.ok) {
         const data = await res.json();
         if (res.status === 401) { showLoginModal(); throw new Error("需要登入"); }
@@ -750,10 +750,10 @@ document.getElementById('avatarInput').addEventListener('change', async e => {
   const file = e.target.files[0];
   if (!file) return;
   requireAuth(async () => {
-    const form = new FormData();
+    const uploadForm = new FormData();
     form.append('avatar', file);
     try {
-      const res = await fetch('/avatar', { method: 'POST', body: form });
+      const res = await fetch('/avatar', { method: 'POST', body: uploadForm });
       if (res.ok) {
         loadAvatar();
         showToast('頭像已更換！');
