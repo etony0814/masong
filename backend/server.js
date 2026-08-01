@@ -336,6 +336,7 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
         fs.writeFileSync(targetPath, Buffer.from(entry.getData()));
       });
+    await db.init();
     res.json({ success: true });
   } catch (e) {
     console.error(e);
