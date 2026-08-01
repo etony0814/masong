@@ -1,4 +1,4 @@
-const API = '/api';
+﻿const API = '/api';
 let _isAuthenticated = false;
 let _pendingAction = null;
 
@@ -494,7 +494,7 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
       const res = await fetch(`${API}/photos`, { method: 'POST', body: form });
       if (!res.ok) {
         const data = await res.json();
-        if (res.status === 401) { showLoginModal(); return; }
+        if (res.status === 401) { showLoginModal(); throw new Error("需要登入"); }
         console.error('Photo upload failed:', data.error);
       }
     } catch(e) { console.error('Photo upload error:', e); }
@@ -510,7 +510,7 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
       const res = await fetch(`${API}/videos`, { method: 'POST', body: form });
       if (!res.ok) {
         const data = await res.json();
-        if (res.status === 401) { showLoginModal(); return; }
+        if (res.status === 401) { showLoginModal(); throw new Error("需要登入"); }
         console.error('Video upload failed:', data.error);
       }
     } catch(e) { console.error('Video upload error:', e); }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -244,19 +244,19 @@
             </div>
             <div class="form-group">
               <label>上傳照片（可多張）</label>
-              <div class="upload-area" id="photoDropZone">
+              <label for="memoryPhotos" class="upload-area" style="cursor: pointer;">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>點擊或拖曳照片至此</p>
-                <input type="file" id="memoryPhotos" accept="image/*" multiple>
+                <input type="file" id="memoryPhotos" accept="image/*" multiple style="display:none;">
               </div>
               <div class="preview-list" id="photoPreviewList"></div>
             </div>
             <div class="form-group">
               <label>上傳影片（可多支）</label>
-              <div class="upload-area" id="videoDropZone">
+              <label for="memoryVideos" class="upload-area" style="cursor: pointer;">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>點擊或拖曳影片至此</p>
-                <input type="file" id="memoryVideos" accept="video/*" multiple>
+                <input type="file" id="memoryVideos" accept="video/*" multiple style="display:none;">
               </div>
               <div class="preview-list" id="videoPreviewList"></div>
             </div>
