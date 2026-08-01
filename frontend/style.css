@@ -326,7 +326,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  color: #C47A4E;
+  color: #FFD4B8;
   font-size: 14px;
   padding: 4px 8px;
   border-radius: 6px;
@@ -335,7 +335,7 @@ body {
   vertical-align: middle;
 }
 .hero-edit-btn:hover {
-  background: #C47A4E;
+  background: #FF6B35;
   color: white;
 }
 .avatar-edit-btn {
@@ -365,7 +365,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  color: #C47A4E;
+  color: #FFD4B8;
   font-size: 14px;
   padding: 4px 8px;
   border-radius: 6px;
@@ -374,7 +374,7 @@ body {
   vertical-align: middle;
 }
 .hero-edit-btn:hover {
-  background: #C47A4E;
+  background: #FF6B35;
   color: white;
 }
 .avatar-edit-btn {
@@ -1258,7 +1258,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  color: #C47A4E;
+  color: #FFD4B8;
   font-size: 14px;
   padding: 4px 8px;
   border-radius: 6px;
@@ -1267,7 +1267,7 @@ body {
   vertical-align: middle;
 }
 .hero-edit-btn:hover {
-  background: #C47A4E;
+  background: #FF6B35;
   color: white;
 }
 .avatar-edit-btn { width: 32px; height: 32px; font-size: 0.78rem; }
@@ -1391,7 +1391,7 @@ body {
   font-size: 0.85rem;
 }
 .logo-title {
-  background: linear-gradient(135deg, #A05830 0%, #C47A4E 100%);
+  background: linear-gradient(135deg, #D4521A 0%, #FF6B35 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1468,10 +1468,10 @@ body, p, textarea, input {
 
 .btn-secondary {
   background: white;
-  border: 2px solid #E8B4A0;
+  border: 2px solid #00D4AA;
   border-radius: 20px;
   padding: 10px 24px;
-  color: #C47A4E;
+  color: #FFD4B8;
   transition: all 0.3s ease;
 }
 
@@ -1494,13 +1494,13 @@ body, p, textarea, input {
 
 .upload-area:hover {
   background: #FFE8DC;
-  border-color: #C47A4E;
+  border-color: #FFD4B8;
   transform: scale(1.02);
 }
 
 .upload-area i {
   font-size: 3rem;
-  color: #C47A4E;
+  color: #FFD4B8;
   margin-bottom: 12px;
 }
 
@@ -1546,7 +1546,7 @@ body, p, textarea, input {
 
 /* Toast 通知美化 - 不影響功能 */
 .toast {
-  background: linear-gradient(135deg, #C47A4E, #E8B4A0);
+  background: linear-gradient(135deg, #FF6B35, #FF9F8A);
   color: white;
   padding: 12px 24px;
   border-radius: 24px;
@@ -1644,10 +1644,10 @@ body, p, textarea, input {
 
 .btn-secondary {
   background: white;
-  border: 2px solid #E8B4A0;
+  border: 2px solid #00D4AA;
   border-radius: 20px;
   padding: 10px 24px;
-  color: #C47A4E;
+  color: #FFD4B8;
   transition: all 0.3s ease;
 }
 
@@ -1670,13 +1670,13 @@ body, p, textarea, input {
 
 .upload-area:hover {
   background: #FFE8DC;
-  border-color: #C47A4E;
+  border-color: #FFD4B8;
   transform: scale(1.02);
 }
 
 .upload-area i {
   font-size: 3rem;
-  color: #C47A4E;
+  color: #FFD4B8;
   margin-bottom: 12px;
 }
 
@@ -1722,7 +1722,7 @@ body, p, textarea, input {
 
 /* Toast 通知美化 - 不影響功能 */
 .toast {
-  background: linear-gradient(135deg, #C47A4E, #E8B4A0);
+  background: linear-gradient(135deg, #FF6B35, #FF9F8A);
   color: white;
   padding: 12px 24px;
   border-radius: 24px;
