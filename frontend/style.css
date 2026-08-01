@@ -508,14 +508,14 @@ body {
   margin-bottom: 8px;
   letter-spacing: 0.04em;
 }
-.timeline-content { 
+.timeline-content {  
   background: var(--bg-card);
   border-radius: var(--radius);
   padding: 18px 20px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.5);
   border: 1px solid var(--border-lt);
   transition: var(--transition);
-  p { font-size: 1rem; font-weight: 500; } }
+}
 .timeline-content:hover {
   box-shadow: var(--shadow);
   border-color: var(--primary-light);
@@ -529,9 +529,10 @@ body {
 }
 .timeline-header h3 { font-size: 1rem; font-weight: 700; color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
 .timeline-desc {
-  font-size: 0.88rem;
-  color: #B8B0A8;
-  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #D4C8C0;
+  font-weight: 600;
+  line-height: 1.7;
   margin-bottom: 12px;
 }
 .timeline-photos { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
@@ -1241,7 +1242,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
   .timeline { padding-left: 28px; }
   .timeline::before { left: 10px; }
   .timeline-item::before { left: -24px; top: 18px; width: 10px; height: 10px; }
-  .timeline-content {  padding: 14px 16px;   p { font-size: 1rem; font-weight: 500; } }
+  .timeline-content {
+  padding: 14px 16px;
+}
   .timeline-photos img { width: 64px; height: 64px; }
   .timeline-videos video { width: 200px; }
   /* ── Milestone Cards ── */
@@ -1670,3 +1673,4 @@ body, p, textarea, input {
   height: 120px;
   margin-bottom: 12px;
 }
+
