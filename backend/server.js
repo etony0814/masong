@@ -351,10 +351,20 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
   }
 });
 
-async function main() {
-  await db.init();
-  app.listen(PORT, () => console.log(`🐕 肉鬆的生活日誌 → http://localhost:${PORT}`));
+async function start() {
+  try {
+    await db.init();
+    console.log("Database initialized successfully");
+  } catch (e) {
+    console.error("Database initialization failed:", e);
+    process.exit(1);
+  }
+  app.listen(PORT, () => console.log("🐕 肉鬆的生活日誌 → http://localhost:" + PORT));
 }
-main().catch(console.error);
+
+start()
 
 
+
+
+start()
