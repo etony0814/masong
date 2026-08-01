@@ -40,6 +40,12 @@ async function init() {
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (memory_id) REFERENCES memories(id) ON DELETE CASCADE
     );
+    CREATE TABLE IF NOT EXISTS config (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      key TEXT NOT NULL UNIQUE,
+      value TEXT DEFAULT '',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
     CREATE TABLE IF NOT EXISTS videos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       memory_id INTEGER, filename TEXT NOT NULL,

@@ -48,7 +48,8 @@
             <input type="file" id="avatarInput" accept="image/*" style="display: none;">
           </div>
           <div class="hero-text">
-            <h2 class="<h2 class="hero-title">大家好，我是小可愛<span class="hero-name">肉鬆</span> 🐾</h2>
+            <h2 class="hero-title" id="heroTitle">大家好，我是小可愛<span class="hero-name">肉鬆</span> 🐾</h2>
+            <button class="hero-edit-btn auth-only" onclick="requireAuth(()=>showHeroModal())" title="編輯標題"><i class="fas fa-pen"></i></button>
             <p class="subtitle" id="ageLine">邊境牧羊犬 · 正在成長中 <span class="hero-bounce-emoji">🌱</span></p>
             <div class="stats-grid">
               <div class="stat-card">
@@ -284,8 +285,7 @@
           <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> 登入</button>
         </div>
       </form>
-      <p class="login-tip">提示：密碼為 mesong2024</p>
-    </div>
+</div>
   </div>
 
   <!-- 照片懸浮窗 -->
@@ -343,6 +343,21 @@
   </div>
 
   <script src="app.js"></script>
+
+  <!-- 標題編輯 Modal -->
+  <div class="modal" id="heroModal">
+    <div class="modal-content">
+      <h3><i class="fas fa-pen"></i> 編輯首頁標題</h3>
+      <div class="form-group">
+        <label>標題文字</label>
+        <input type="text" id="heroTitleInput" placeholder="例如：大家好，我是小可愛肉鬆 🐾" maxlength="50">
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" onclick="closeHeroModal()">取消</button>
+        <button type="button" class="btn-primary" onclick="saveHeroTitle()">儲存</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 

@@ -321,6 +321,24 @@ body {
   box-shadow: 0 0 0 3px rgba(107,158,120,0.2);
 }
 
+
+/* 標題編輯按鈕 */
+.hero-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #C47A4E;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.hero-edit-btn:hover {
+  background: #C47A4E;
+  color: white;
+}
 .avatar-edit-btn {
   position: absolute;
   bottom: 4px;
@@ -342,7 +360,25 @@ body {
   border: 2px solid white;
   box-shadow: var(--shadow-sm);
 }
-.dog-avatar:hover .avatar-edit-btn {
+.dog-avatar:hover 
+/* 標題編輯按鈕 */
+.hero-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #C47A4E;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.hero-edit-btn:hover {
+  background: #C47A4E;
+  color: white;
+}
+.avatar-edit-btn {
   opacity: 1;
   transform: scale(1) translateY(0);
   pointer-events: auto;
@@ -1217,7 +1253,25 @@ body {
   .stat-label { font-size: 0.7rem; }
   .avatar { width: 100px; height: 100px; }
   .dog-avatar:hover .avatar { transform: scale(1.02) rotate(0deg); }
-  .avatar-edit-btn { width: 32px; height: 32px; font-size: 0.78rem; }
+  
+/* 標題編輯按鈕 */
+.hero-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #C47A4E;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.hero-edit-btn:hover {
+  background: #C47A4E;
+  color: white;
+}
+.avatar-edit-btn { width: 32px; height: 32px; font-size: 0.78rem; }
 
   /* ── Section ── */
   .section { padding: 20px 0 48px; }

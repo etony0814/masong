@@ -769,6 +769,37 @@ document.getElementById('avatarInput').addEventListener('change', async e => {
   e.target.value = '';
 });
 
+
+// ===== 首頁標題 =====
+async function loadHeroTitle() {
+  try {
+    const res = await fetch('/api/hero');
+    const data = await res.json();
+    if (data.title) {
+      document.getElementById('heroTitle').innerHTML = data.title;
+    }
+  } catch (e) {}
+}
+function showHeroModal() {
+  document.getElementById('heroTitleInput').value = document.getElementById('heroTitle').innerHTML;
+  document.getElementById('heroModal').classList.add('open');
+}
+function closeHeroModal() {
+  document.getElementById('heroModal').classList.remove('open');
+}
+async function saveHeroTitle() {
+  const title = document.getElementById('heroTitleInput').value.trim();
+  if (!title) { showToast('請輸入標題', 'error'); return; }
+  try {
+    await apiFetch('/api/hero', { method: 'POST', body: JSON.stringify({ title }) });
+    document.getElementById('heroTitle').innerHTML = title;
+    closeHeroModal();
+    showToast('標題已更新！');
+  } catch (err) {
+    if (err.message !== '需要登入') showToast(err.message, 'error');
+  }
+}
+
 // ===== 資料匯出 =====
 function exportData(format) {
   if (!_isAuthenticated) {

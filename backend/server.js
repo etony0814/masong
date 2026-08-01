@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // 固定密碼
-const PASSWORD = '920412';
+const PASSWORD = '0412';
 
 app.use(cors());
 // 自定義 JSON body parser：跳過 multipart 請求
@@ -239,6 +239,17 @@ app.delete('/api/avatar', requireAuth, (req, res) => {
   if (fs.existsSync(AVATAR_PATH)) fs.unlinkSync(AVATAR_PATH);
   res.json({ success: true });
 });
+// ── 首頁標題 ──
+app.get('/api/hero', (req, res) => {
+  const row = db.get('SELECT value FROM config WHERE key=?', ['hero_title']);
+  res.json({ title: row ? row.value : null });
+});
+app.post('/api/hero', requireAuth, (req, res) => {
+  const { title } = req.body;
+  db.run('INSERT OR REPLACE INTO config (key, value) VALUES (?, ?)', ['hero_title', title || '']);
+  res.json({ success: true });
+});
+
 
 // ── 匯出（需登入）──
 function sendFile(res, data, filename) {
