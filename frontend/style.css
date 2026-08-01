@@ -1448,7 +1448,7 @@ body {
 
 /* 標題文字顏色更柔和 */
 h2, h3, h4 {
-  color: #5D4037;
+  color: #E0D8D0;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -1505,7 +1505,7 @@ body, p, textarea, input {
 }
 
 .upload-area p {
-  color: #8D6E63;
+  color: #B8B0A8;
   font-size: 1rem;
   margin: 0;
 }
@@ -1624,14 +1624,14 @@ body, p, textarea, input {
 
 /* 標題文字顏色更柔和 */
 h2, h3, h4 {
-  color: #5D4037;
+  color: #E0D8D0;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 /* 正文文字更舒適 */
 body, p, textarea, input {
-  color: #6D4C41;
+  color: #D4C8C0;
   line-height: 1.6;
 }
 
@@ -1681,7 +1681,7 @@ body, p, textarea, input {
 }
 
 .upload-area p {
-  color: #8D6E63;
+  color: #B8B0A8;
   font-size: 1rem;
   margin: 0;
 }
