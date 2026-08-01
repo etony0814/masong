@@ -1459,17 +1459,7 @@ body, p, textarea, input {
   line-height: 1.6;
 }
 
-/* 按鈕美化 - 保持原有功能 */
-.btn-primary {
-  background: linear-gradient(135deg, #C47A4E, #E8B4A0);
-  border: none;
-  border-radius: 24px;
-  padding: 12px 28px;
-  font-weight: 600;
-  color: white;
-  box-shadow: 0 3px 10px rgba(196, 122, 78, 0.3);
-  transition: all 0.3s ease;
-}
+
 
 .btn-primary:hover {
   transform: translateY(-1px);
@@ -1645,17 +1635,7 @@ body, p, textarea, input {
   line-height: 1.6;
 }
 
-/* 按鈕美化 - 保持原有功能 */
-.btn-primary {
-  background: linear-gradient(135deg, #C47A4E, #E8B4A0);
-  border: none;
-  border-radius: 24px;
-  padding: 12px 28px;
-  font-weight: 600;
-  color: white;
-  box-shadow: 0 3px 10px rgba(196, 122, 78, 0.3);
-  transition: all 0.3s ease;
-}
+
 
 .btn-primary:hover {
   transform: translateY(-1px);
