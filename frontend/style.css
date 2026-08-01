@@ -1483,7 +1483,7 @@ body, p, textarea, input {
 /* 上傳區域視覺強化 - 保持可點擊功能 */
 .upload-area {
   background: #FFF3E0;
-  border: 2px dashed #E8B4A0;
+  border: 2px dashed #FF9F8A;
   border-radius: 16px;
   padding: 32px;
   text-align: center;
@@ -1526,7 +1526,7 @@ body, p, textarea, input {
 
 .milestone-card {
   background: #FFF8F0;
-  border-left: 4px solid #C47A4E;
+  border-left: 4px solid #FF6B35;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 16px;
@@ -1659,7 +1659,7 @@ body, p, textarea, input {
 /* 上傳區域視覺強化 - 保持可點擊功能 */
 .upload-area {
   background: #FFF3E0;
-  border: 2px dashed #E8B4A0;
+  border: 2px dashed #FF9F8A;
   border-radius: 16px;
   padding: 32px;
   text-align: center;
@@ -1702,7 +1702,7 @@ body, p, textarea, input {
 
 .milestone-card {
   background: #FFF8F0;
-  border-left: 4px solid #C47A4E;
+  border-left: 4px solid #FF6B35;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 16px;
