@@ -1205,6 +1205,11 @@ body {
   background: var(--bg-elevated);
   color: #FF6B35; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
+/* 日曆圖示在深色背景上可見 */
+input[type=date]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(1) saturate(3) hue-rotate(340deg);
+  cursor: pointer;
+}
 .filter-sep { color: var(--text-faint); }
 
 /* ═══════════════════════════════
