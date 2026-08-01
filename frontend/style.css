@@ -970,6 +970,37 @@ body {
   text-align: center;
 }
 
+
+/* ═══════════════════════════════
+   頭像裁切器
+   ═══════════════════════════════ */
+.crop-modal { max-width: 420px; }
+.crop-container {
+  height: 320px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.crop-container img {
+  max-width: 100%;
+  display: block;
+}
+.crop-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.crop-controls .btn-secondary {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  border-radius: 50%;
+}
 /* ═══════════════════════════════
    Modal 彈窗
    ═══════════════════════════════ */

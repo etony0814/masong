@@ -460,6 +460,9 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
 
   if (!title || !date) { showToast('請填寫標題和日期', 'error'); return; }
 
+  // 防重複提交
+  const submitBtn = document.querySelector('#memoryForm .btn-primary');
+  if (submitBtn) submitBtn.disabled = true;
   let memoryId = null;
   try {
     if (editId) {
@@ -479,9 +482,9 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
   } catch (err) {
     if (err.message !== '需要登入') {
       showToast(err.message || '儲存失敗', 'error');
-      return;
     }
   }
+  if (submitBtn) submitBtn.disabled = false;
 
   // 上傳照片
   const photoFiles = document.getElementById('memoryPhotos').files;
@@ -798,17 +801,63 @@ async function loadAvatar() {
   }
 }
 
+// ===== 頭像裁切 =====
+let avatarCropper = null;
+let _pendingAvatarFile = null;
+
 document.getElementById('avatarInput').addEventListener('change', async e => {
   const file = e.target.files[0];
   if (!file) return;
   requireAuth(async () => {
-    const uploadForm = new FormData();
-    form.append('avatar', file);
+    _pendingAvatarFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = document.getElementById('avatarCropImage');
+      img.src = ev.target.result;
+      document.getElementById('avatarCropModal').classList.add('open');
+      if (avatarCropper) avatarCropper.destroy();
+      avatarCropper = new Cropper(img, {
+        aspectRatio: 1,
+        viewMode: 1,
+        autoCropArea: 0.9,
+        responsive: true
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+});
+
+function closeAvatarCrop() {
+  document.getElementById('avatarCropModal').classList.remove('open');
+  if (avatarCropper) { avatarCropper.destroy(); avatarCropper = null; }
+  _pendingAvatarFile = null;
+}
+
+function zoomCrop(factor) {
+  if (avatarCropper) avatarCropper.zoom(factor);
+}
+
+function rotateCrop(deg) {
+  if (avatarCropper) avatarCropper.rotate(deg);
+}
+
+async function saveAvatarCrop() {
+  if (!avatarCropper || !_pendingAvatarFile) return;
+  const canvas = avatarCropper.getCroppedCanvas({
+    width: 300,
+    height: 300,
+    imageSmoothingQuality: 'high'
+  });
+  canvas.toBlob(async blob => {
+    const form = new FormData();
+    form.append('avatar', blob, 'avatar.jpg');
     try {
-      const res = await fetch('/avatar', { method: 'POST', body: uploadForm });
+      const res = await fetch('/avatar', { method: 'POST', body: form });
       if (res.ok) {
         loadAvatar();
-        showToast('頭像已更換！');
+        showToast('頭像已更新！');
+        closeAvatarCrop();
       } else {
         const data = await res.json();
         if (res.status === 401) showLoginModal();
@@ -817,9 +866,9 @@ document.getElementById('avatarInput').addEventListener('change', async e => {
     } catch (err) {
       showToast('上傳失敗', 'error');
     }
-  });
-  e.target.value = '';
-});
+  }, 'image/jpeg', 0.92);
+  closeAvatarCrop();
+}
 
 
 // ===== 首頁標題 =====
