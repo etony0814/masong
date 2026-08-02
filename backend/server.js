@@ -342,7 +342,6 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
       fs.mkdirSync(avatarDir, { recursive: true });
       fs.writeFileSync(path.join(avatarDir, 'avatar.jpg'), Buffer.from(avatarEntry.getData()));
     }
-    await db.close();
     await db.init();
     res.json({ success: true });
   } catch (e) {
