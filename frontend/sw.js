@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mesong-v2';
+const CACHE_NAME = 'mesong-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -27,7 +27,16 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
+  // API 請求：一律走網路，不走快取
+  if (url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+  
   if (event.request.method !== 'GET') return;
+  
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
