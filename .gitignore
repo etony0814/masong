@@ -8,5 +8,6 @@ backend/uploads/*/*
 *.js
 !backend/server.js
 !backend/database.js
+!backend/drive.js
 frontend/*.js
 .claude/
