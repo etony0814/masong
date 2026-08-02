@@ -4,7 +4,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const db = require('./database');
-const driveService = require('./drive');
 const initSqlJs = require('sql.js');
 const AdmZip = require('adm-zip');
 
@@ -99,10 +98,6 @@ app.get('/api/check-auth', (req, res) => {
   res.json({ authenticated: req.authenticated });
 });
 
-app.get('/api/drive-status', (req, res) => {
-  res.json({ available: driveService.isDriveAvailable() });
-});
-
 // ── 公開 API（無需登入）──
 app.get('/api/memories', (req, res) => res.json(db.all('SELECT * FROM memories ORDER BY date DESC')));
 app.get('/api/memories/:id', (req, res) => {
@@ -190,65 +185,24 @@ app.delete('/api/memories/:id', requireAuth, (req, res) => {
   db.run('DELETE FROM memories WHERE id=?', [req.params.id]);
   res.json({ success: true });
 });
-
-// 照片上傳（本地儲存，drive_url 設為空）
 app.post('/api/photos', requireAuth, photoUpload.single('photo'), (req, res) => {
   const { memory_id, caption, order_index } = req.body;
   if (!req.file) return res.status(400).json({ error: '沒有檔案' });
   const id = db.insertAndGetId(
-    'INSERT INTO photos (memory_id, filename, caption, order_index, drive_url) VALUES (?, ?, ?, ?, ?)',
-    [memory_id || null, req.file.filename, caption || '', order_index || 0, '']
+    'INSERT INTO photos (memory_id, filename, caption, order_index) VALUES (?, ?, ?, ?)',
+    [memory_id || null, req.file.filename, caption || '', order_index || 0]
   );
-  res.json({ id, filename: req.file.filename, drive_url: '' });
+  res.json({ id, filename: req.file.filename });
 });
-
-// 影片上傳（本地儲存，drive_url 設為空）
 app.post('/api/videos', requireAuth, videoUpload.single('video'), (req, res) => {
   const { memory_id, caption, duration } = req.body;
   if (!req.file) return res.status(400).json({ error: '沒有檔案' });
   const id = db.insertAndGetId(
-    'INSERT INTO videos (memory_id, filename, caption, duration, drive_url) VALUES (?, ?, ?, ?, ?)',
-    [memory_id || null, req.file.filename, caption || '', duration || '', '']
+    'INSERT INTO videos (memory_id, filename, caption, duration) VALUES (?, ?, ?, ?)',
+    [memory_id || null, req.file.filename, caption || '', duration || '']
   );
-  res.json({ id, filename: req.file.filename, drive_url: '' });
+  res.json({ id, filename: req.file.filename });
 });
-
-// 雲端照片上傳（Google Drive）
-app.post('/api/cloud/photos', requireAuth, photoUpload.single('photo'), (req, res) => {
-  const { memory_id, caption, order_index } = req.body;
-  if (!req.file) return res.status(400).json({ error: '沒有檔案' });
-  driveService.uploadToDrive(req.file.filename, req.file.buffer, req.file.mimetype)
-    .then(url => {
-      const id = db.insertAndGetId(
-        'INSERT INTO photos (memory_id, filename, caption, order_index, drive_url) VALUES (?, ?, ?, ?, ?)',
-        [memory_id || null, req.file.filename, caption || '', order_index || 0, url]
-      );
-      res.json({ id, filename: req.file.filename, drive_url: url });
-    })
-    .catch(err => {
-      console.error('Google Drive 上傳失敗:', err);
-      res.status(500).json({ error: 'Google Drive 上傳失敗: ' + err.message });
-    });
-});
-
-// 雲端影片上傳（Google Drive）
-app.post('/api/cloud/videos', requireAuth, videoUpload.single('video'), (req, res) => {
-  const { memory_id, caption, duration } = req.body;
-  if (!req.file) return res.status(400).json({ error: '沒有檔案' });
-  driveService.uploadToDrive(req.file.filename, req.file.buffer, req.file.mimetype)
-    .then(url => {
-      const id = db.insertAndGetId(
-        'INSERT INTO videos (memory_id, filename, caption, duration, drive_url) VALUES (?, ?, ?, ?, ?)',
-        [memory_id || null, req.file.filename, caption || '', duration || '', url]
-      );
-      res.json({ id, filename: req.file.filename, drive_url: url });
-    })
-    .catch(err => {
-      console.error('Google Drive 上傳失敗:', err);
-      res.status(500).json({ error: 'Google Drive 上傳失敗: ' + err.message });
-    });
-});
-
 app.post('/api/milestones', requireAuth, (req, res) => {
   const { title, description, date, icon } = req.body;
   const id = db.insertAndGetId(
@@ -268,29 +222,14 @@ app.delete('/api/milestones/:id', requireAuth, (req, res) => {
   res.json({ success: true });
 });
 app.delete('/api/photos/:id', requireAuth, (req, res) => {
-  const photo = db.get('SELECT filename, drive_url FROM photos WHERE id=?', [req.params.id]);
-  if (photo) {
-    if (photo.drive_url) {
-      // 從 Drive 刪除
-      const match = photo.drive_url.match(/id=([a-zA-Z0-9_-]+)/);
-      if (match) driveService.deleteFromDrive(match[1]).catch(console.error);
-    } else {
-      try { fs.unlinkSync(path.resolve(__dirname, 'uploads', 'photos', photo.filename)); } catch (e) {}
-    }
-  }
+  const photo = db.get('SELECT filename FROM photos WHERE id=?', [req.params.id]);
+  if (photo) { try { fs.unlinkSync(path.resolve(__dirname, 'uploads', 'photos', photo.filename)); } catch (e) {} }
   db.run('DELETE FROM photos WHERE id=?', [req.params.id]);
   res.json({ success: true });
 });
 app.delete('/api/videos/:id', requireAuth, (req, res) => {
-  const video = db.get('SELECT filename, drive_url FROM videos WHERE id=?', [req.params.id]);
-  if (video) {
-    if (video.drive_url) {
-      const match = video.drive_url.match(/id=([a-zA-Z0-9_-]+)/);
-      if (match) driveService.deleteFromDrive(match[1]).catch(console.error);
-    } else {
-      try { fs.unlinkSync(path.resolve(__dirname, 'uploads', 'videos', video.filename)); } catch (e) {}
-    }
-  }
+  const video = db.get('SELECT filename FROM videos WHERE id=?', [req.params.id]);
+  if (video) { try { fs.unlinkSync(path.resolve(__dirname, 'uploads', 'videos', video.filename)); } catch (e) {} }
   db.run('DELETE FROM videos WHERE id=?', [req.params.id]);
   res.json({ success: true });
 });
@@ -313,6 +252,7 @@ app.post('/api/hero', requireAuth, (req, res) => {
   db.run('INSERT OR REPLACE INTO config (key, value) VALUES (?, ?)', ['hero_title', title || '']);
   res.json({ success: true });
 });
+
 
 // ── 匯出（需登入）──
 function sendFile(res, data, filename) {
@@ -354,6 +294,8 @@ app.get('/api/export/db', requireAuth, (req, res) => {
   sendFile(res, buf, 'mesong-database.db');
 });
 
+
+
 // ── 匯出完整備份（含資料庫與所有照片/影片）──
 app.get('/api/export/backup', requireAuth, (req, res) => {
   const dbPath = path.resolve(__dirname, 'data', '肉鬆的生活日誌.db');
@@ -391,11 +333,12 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
       .filter(e => e.entryName.startsWith('uploads/') && !e.directory)
       .forEach(entry => {
         const uploadPath = entry.entryName;
+        // 移除 uploads/ 前缀（处理不同分隔符）
         let relativePath = uploadPath;
-        if (uploadPath.startsWith('uploads/')) {
-          relativePath = uploadPath.substring('uploads/'.length);
+        if (uploadPath.startsWith("uploads/")) {
+          relativePath = uploadPath.substring("uploads/".length);
         }
-        const targetPath = path.resolve(__dirname, 'uploads', relativePath);
+        const targetPath = path.resolve(__dirname, "uploads", relativePath);
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
         fs.writeFileSync(targetPath, Buffer.from(entry.getData()));
       });
@@ -416,7 +359,6 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
 async function main() {
   try {
     await db.init();
-    await driveService.initGoogleDrive();
     console.log('Database initialized successfully');
   } catch (e) {
     console.error('Database initialization failed:', e);
@@ -425,3 +367,7 @@ async function main() {
   app.listen(PORT, () => console.log('肉鬆的生活日誌 -> http://localhost:' + PORT));
 }
 main().catch(console.error);
+
+
+
+

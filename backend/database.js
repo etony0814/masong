@@ -20,7 +20,7 @@ async function init() {
       title TEXT NOT NULL UNIQUE,
       description TEXT,
       date TEXT NOT NULL,
-      icon TEXT DEFAULT '🌟',
+      icon TEXT DEFAULT '\u{1F31F}',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `);
@@ -38,6 +38,7 @@ async function init() {
       memory_id INTEGER, filename TEXT NOT NULL,
       caption TEXT DEFAULT '', order_index INTEGER DEFAULT 0,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      drive_url TEXT DEFAULT '',
       FOREIGN KEY (memory_id) REFERENCES memories(id) ON DELETE CASCADE
     );
     CREATE TABLE IF NOT EXISTS config (
@@ -51,9 +52,13 @@ async function init() {
       memory_id INTEGER, filename TEXT NOT NULL,
       caption TEXT DEFAULT '', duration TEXT DEFAULT '',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      drive_url TEXT DEFAULT '',
       FOREIGN KEY (memory_id) REFERENCES memories(id) ON DELETE CASCADE
     );
   `);
+  // 新增 drive_url 列（若舊資料表不存在）
+  try { db.run("ALTER TABLE photos ADD COLUMN drive_url TEXT DEFAULT ''"); } catch(e) {}
+  try { db.run("ALTER TABLE videos ADD COLUMN drive_url TEXT DEFAULT ''"); } catch(e) {}
   // 插入預設里程碑
   const defaults = [
     ['肉鬆来到這個世界', '3個月大的可愛的邊境牧羊犬', '2026-04-30', '🐾'],

@@ -1,5 +1,6 @@
 const API = '/api';
 let _isAuthenticated = false;
+let _driveAvailable = false;
 let _pendingAction = null;
 
 // ===== 導航 =====
@@ -81,6 +82,8 @@ async function checkAuth() {
     const data = await apiFetch(`${API}/check-auth`);
     _isAuthenticated = data.authenticated;
     updateAuthUI();
+    const driveData = await apiFetch(`${API}/drive-status`);
+    _driveAvailable = driveData.available;
   } catch (e) {
     _isAuthenticated = false;
     updateAuthUI();
@@ -228,7 +231,7 @@ async function loadOverview() {
     if (photos.length > 0) {
       photoC.innerHTML = photos.slice(0, 6).map((p, i) => `
         <div class="photo-item" onclick="openLightbox(${i})">
-          <img src="/uploads/photos/${esc(p.filename)}" alt="${esc(p.caption)}" loading="lazy">
+          <img src="${(p.drive_url || "/uploads/photos/"+esc(p.filename))}" alt="${esc(p.caption)}" loading="lazy">
           <div class="photo-item-overlay">${esc(p.caption || p.filename)}</div>
         </div>
       `).join('');
@@ -320,10 +323,10 @@ function renderTimeline(memories, photos, videos, filterFn) {
           ${m.weight ? `<span class="weight-tag">⚖️ ${esc(m.weight)} kg</span>` : ''}
           <p class="timeline-desc">${esc(m.content || '')}</p>
           ${mPhotos.length > 0 ? `<div class="timeline-photos">${mPhotos.map(p =>
-            `<img src="/uploads/photos/${esc(p.filename)}" alt="${esc(p.caption)}" onclick="openLightboxBySrc('/uploads/photos/${esc(p.filename)}')" loading="lazy">`
+            `<img src="${(p.drive_url || "/uploads/photos/"+esc(p.filename))}" alt="${esc(p.caption)}" onclick="openLightboxBySrc('/uploads/photos/${esc(p.filename)}')" loading="lazy">`
           ).join('')}</div>` : ''}
           ${mVideos.length > 0 ? `<div class="timeline-videos">${mVideos.map(v =>
-            `<video src="/uploads/videos/${esc(v.filename)}" controls preload="metadata"></video>`
+            `<video src="${(v.drive_url || "/uploads/videos/"+esc(v.filename))}" controls preload="metadata"></video>`
           ).join('')}</div>` : ''}
           <div class="timeline-actions">
             <button class="btn-edit-sm" onclick="requireAuth(()=>editMemory(${m.id}))"><i class="fas fa-pen"></i> 編輯</button>
@@ -387,7 +390,7 @@ async function loadPhotos() {
     if (photos.length > 0) {
       container.innerHTML = photos.map((p, i) => `
         <div class="photo-item" onclick="openLightbox(${i})">
-          <img src="/uploads/photos/${esc(p.filename)}" alt="${esc(p.caption)}" loading="lazy">
+          <img src="${(p.drive_url || "/uploads/photos/"+esc(p.filename))}" alt="${esc(p.caption)}" loading="lazy">
           <div class="photo-item-overlay">
             ${esc(p.caption || p.filename)}
             <button class="btn-danger" onclick="event.stopPropagation(); requireAuth(()=>deletePhoto(${p.id}))"><i class="fas fa-trash"></i></button>
@@ -412,7 +415,7 @@ async function loadVideos() {
     if (videos.length > 0) {
       container.innerHTML = videos.map(v => `
         <div class="video-item">
-          <video src="/uploads/videos/${esc(v.filename)}" controls preload="metadata"></video>
+          <video src="${(v.drive_url || "/uploads/videos/"+esc(v.filename))}" controls preload="metadata"></video>
           <div class="video-info">
             <p>${esc(v.caption || v.filename)}</p>
             <button class="btn-danger" onclick="requireAuth(()=>deleteVideo(${v.id}))"><i class="fas fa-trash"></i> 刪除</button>
@@ -495,7 +498,7 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
     uploadForm.append('memory_id', memoryId);
     uploadForm.append('order_index', i);
     try {
-      const res = await fetch(`${API}/photos`, { method: 'POST', body: uploadForm });
+      const res = await fetch(`${API}${_driveAvailable ? '/cloud' : ''}/photos`, { method: 'POST', body: uploadForm });
       if (!res.ok) {
         const data = await res.json();
         if (res.status === 401) { showLoginModal(); throw new Error("需要登入"); }
@@ -511,7 +514,7 @@ document.getElementById('memoryForm').addEventListener('submit', async e => {
     uploadForm.append('video', file);
     uploadForm.append('memory_id', memoryId);
     try {
-      const res = await fetch(`${API}/videos`, { method: 'POST', body: uploadForm });
+      const res = await fetch(`${API}${_driveAvailable ? '/cloud' : ''}/videos`, { method: 'POST', body: uploadForm });
       if (!res.ok) {
         const data = await res.json();
         if (res.status === 401) { showLoginModal(); throw new Error("需要登入"); }
@@ -576,7 +579,7 @@ document.getElementById('photoUpload').addEventListener('change', async e => {
       const form = new FormData();
       form.append('photo', files[i]);
       try {
-        const res = await fetch('/api/photos', { method: 'POST', body: form });
+        const res = await fetch(`${_driveAvailable ? '/api/cloud' : '/api'}/photos`, { method: 'POST', body: form });
         if (res.ok) {
           showToast('照片已上傳！');
         } else {
@@ -602,7 +605,7 @@ document.getElementById('videoUpload').addEventListener('change', async e => {
       const form = new FormData();
       form.append('video', files[i]);
       try {
-        const res = await fetch('/api/videos', { method: 'POST', body: form });
+        const res = await fetch(`${_driveAvailable ? '/api/cloud' : '/api'}/videos`, { method: 'POST', body: form });
         if (res.ok) {
           showToast('影片已上傳！');
         } else {
@@ -624,7 +627,7 @@ function showLightboxImage() {
   const photos = window._lightboxPhotos || [];
   const idx = window._lightboxIndex || 0;
   if (photos[idx]) {
-    document.getElementById('lightboxImg').src = `/uploads/photos/${esc(photos[idx].filename)}`;
+    document.getElementById('lightboxImg').src = photos[idx].drive_url || `/uploads/photos/${esc(photos[idx].filename)}`;
     document.getElementById('lightboxCaption').textContent = esc(photos[idx].caption || photos[idx].filename);
   }
 }
@@ -637,7 +640,7 @@ function openLightbox(idx) {
 
 function openLightboxBySrc(src) {
   const photos = window._allPhotos || [];
-  const idx = photos.findIndex(p => p.filename === src.replace('/uploads/photos/', ''));
+  const idx = photos.findIndex(p => p.filename === src.replace('/uploads/photos/', '') || p.drive_url === src);
   window._lightboxPhotos = photos;
   window._lightboxIndex = idx >= 0 ? idx : 0;
   showLightboxImage();
