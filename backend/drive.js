@@ -110,6 +110,35 @@ async function downloadFromDrive(fileId) {
   return Buffer.from(response.data);
 }
 
+// 產生 OAuth 授權 URL
+function generateAuthUrl() {
+  if (!isDriveAvailable()) return null;
+  
+  const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, 'http://localhost:3000/auth/google/callback');
+  
+  return oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    prompt: 'consent',
+    scope: ['https://www.googleapis.com/auth/drive.file'],
+    redirect_uri: 'http://localhost:3000/auth/google/callback'
+  });
+}
+
+// 用 authorization code 換取 tokens
+async function exchangeCodeForToken(code) {
+  if (!isDriveAvailable()) return null;
+  
+  const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, 'http://localhost:3000/auth/google/callback');
+  const { tokens } = await oauth2Client.getToken(code);
+  oauth2Client.setCredentials(tokens);
+  
+  return {
+    access_token: tokens.access_token,
+    refresh_token: tokens.refresh_token,
+    expires_in: tokens.expires_in
+  };
+}
+
 module.exports = {
   initGoogleDrive,
   uploadToDrive,
@@ -117,6 +146,8 @@ module.exports = {
   deleteFromDrive,
   getDisplayUrl,
   downloadFromDrive,
+  generateAuthUrl,
+  exchangeCodeForToken,
   isDriveAvailable,
   get drive() { return driveService; }
 };

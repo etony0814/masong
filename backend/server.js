@@ -103,6 +103,35 @@ app.get('/api/drive-status', (req, res) => {
   res.json({ available: driveService.isDriveAvailable() });
 });
 
+// ── Google OAuth 授權 ──
+app.get('/auth/google', (req, res) => {
+  const authUrl = driveService.generateAuthUrl();
+  if (!authUrl) return res.status(500).json({ error: 'Google Drive 未配置' });
+  res.redirect(authUrl);
+});
+
+app.get('/auth/google/callback', async (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.status(400).json({ error: '缺少 authorization code' });
+  
+  try {
+    const tokens = await driveService.exchangeCodeForToken(code);
+    if (!tokens) return res.status(500).json({ error: '取得 token 失敗' });
+    
+    // 儲存 refresh token 到環境變數（實際應用應儲存在資料庫）
+    // 這裡直接輸出，使用者可以手動設定到 Render
+    res.json({ 
+      success: true, 
+      message: '授權成功，請將 refresh_token 設定到 Render 環境變數 GOOGLE_DRIVE_REFRESH_TOKEN',
+      refresh_token: tokens.refresh_token,
+      expires_in: tokens.expires_in 
+    });
+  } catch (err) {
+    console.error('OAuth callback error:', err);
+    res.status(500).json({ error: '授權失敗: ' + err.message });
+  }
+});
+
 // ── 公開 API（無需登入）──
 app.get('/api/memories', (req, res) => res.json(db.all('SELECT * FROM memories ORDER BY date DESC')));
 app.get('/api/memories/:id', (req, res) => {
@@ -420,7 +449,6 @@ async function main() {
     console.log('Database initialized successfully');
   } catch (e) {
     console.error('Database initialization failed:', e);
-    process.exit(1);
   }
   app.listen(PORT, () => console.log('肉鬆的生活日誌 -> http://localhost:' + PORT));
 }
