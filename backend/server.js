@@ -336,7 +336,7 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
         // 移除 uploads/ 前缀（处理不同分隔符）
         let relativePath = uploadPath;
         if (uploadPath.startsWith("uploads/")) {
-          relativePath = uploadPath.substring("uploads/'.length);
+          relativePath = uploadPath.substring("uploads/".length);
         }
         const targetPath = path.join(__dirname, "uploads", relativePath);
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
