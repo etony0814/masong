@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mesong-v3';
+const CACHE_NAME = 'mesong-v4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -31,6 +31,12 @@ self.addEventListener('fetch', event => {
   
   // API 請求：一律走網路，不走快取
   if (url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+  
+  // 上傳文件請求：一律走網路，不走快取
+  if (url.pathname.startsWith('/uploads/')) {
     event.respondWith(fetch(event.request));
     return;
   }
