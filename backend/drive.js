@@ -5,6 +5,14 @@ const { google } = require('googleapis');
 const path = require('path');
 
 let driveService = null;
+
+// 根據環境取得正確的 redirect_uri
+function getRedirectUri() {
+  const host = process.env.HOST || 'localhost';
+  const port = process.env.PORT || '3000';
+  const isProd = process.env.NODE_ENV === 'production' || host !== 'localhost';
+  return isProd ? 'https://masong.onrender.com/auth/google/callback' : 'http://localhost:' + port + '/auth/google/callback';
+}
 let auth = null;
 
 const FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID;
@@ -114,13 +122,13 @@ async function downloadFromDrive(fileId) {
 function generateAuthUrl() {
   if (!isDriveAvailable()) return null;
   
-  const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, 'http://localhost:3000/auth/google/callback');
+  const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, getRedirectUri());
   
   return oauth2Client.generateAuthUrl({
     access_type: 'offline',
     prompt: 'consent',
     scope: ['https://www.googleapis.com/auth/drive.file'],
-    redirect_uri: 'http://localhost:3000/auth/google/callback'
+    redirect_uri: getRedirectUri()
   });
 }
 
@@ -128,7 +136,7 @@ function generateAuthUrl() {
 async function exchangeCodeForToken(code) {
   if (!isDriveAvailable()) return null;
   
-  const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, 'http://localhost:3000/auth/google/callback');
+  const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, getRedirectUri());
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
   
@@ -151,3 +159,4 @@ module.exports = {
   isDriveAvailable,
   get drive() { return driveService; }
 };
+
