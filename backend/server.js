@@ -19,11 +19,11 @@ app.use((req, res, next) => {
   if (req.headers['content-type']?.includes('multipart')) return next();
   express.json()(req, res, next);
 });
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.resolve(__dirname, '../frontend')));
+app.use('/uploads', express.static(path.resolve(__dirname, 'uploads')));
 
 ['photos', 'videos', 'covers'].forEach(dir => {
-  fs.mkdirSync(path.join(__dirname, 'uploads', dir), { recursive: true });
+  fs.mkdirSync(path.resolve(__dirname, 'uploads', dir), { recursive: true });
 });
 
 // 簡單的 session 機制（用 cookie）
@@ -40,7 +40,7 @@ function requireAuth(req, res, next) {
 }
 
 const storage = (subDir) => multer.diskStorage({
-  destination: (req, file, cb) => cb(null, path.join(__dirname, 'uploads', subDir)),
+  destination: (req, file, cb) => cb(null, path.resolve(__dirname, 'uploads', subDir)),
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
     const name = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}${ext}`;
@@ -75,8 +75,8 @@ const avatarUpload = multer({
   }
 });
 
-const AVATAR_PATH = path.join(__dirname, '../frontend/images/avatar.jpg');
-const DB_PATH = path.join(__dirname, "data", "肉鬆的生活日誌.db");
+const AVATAR_PATH = path.resolve(__dirname, '../frontend/images/avatar.jpg');
+const DB_PATH = path.resolve(__dirname, "data", "肉鬆的生活日誌.db");
 
 // ── 登入驗證 ──
 app.post('/api/login', (req, res) => {
@@ -223,13 +223,13 @@ app.delete('/api/milestones/:id', requireAuth, (req, res) => {
 });
 app.delete('/api/photos/:id', requireAuth, (req, res) => {
   const photo = db.get('SELECT filename FROM photos WHERE id=?', [req.params.id]);
-  if (photo) { try { fs.unlinkSync(path.join(__dirname, 'uploads', 'photos', photo.filename)); } catch (e) {} }
+  if (photo) { try { fs.unlinkSync(path.resolve(__dirname, 'uploads', 'photos', photo.filename)); } catch (e) {} }
   db.run('DELETE FROM photos WHERE id=?', [req.params.id]);
   res.json({ success: true });
 });
 app.delete('/api/videos/:id', requireAuth, (req, res) => {
   const video = db.get('SELECT filename FROM videos WHERE id=?', [req.params.id]);
-  if (video) { try { fs.unlinkSync(path.join(__dirname, 'uploads', 'videos', video.filename)); } catch (e) {} }
+  if (video) { try { fs.unlinkSync(path.resolve(__dirname, 'uploads', 'videos', video.filename)); } catch (e) {} }
   db.run('DELETE FROM videos WHERE id=?', [req.params.id]);
   res.json({ success: true });
 });
@@ -287,7 +287,7 @@ app.get('/api/export/csv', requireAuth, (req, res) => {
 });
 
 app.get('/api/export/db', requireAuth, (req, res) => {
-  const dbPath = path.join(__dirname, 'data', '肉鬆的生活日誌.db');
+  const dbPath = path.resolve(__dirname, 'data', '肉鬆的生活日誌.db');
   if (!fs.existsSync(dbPath)) return res.status(404).json({ error: 'DB not found' });
   const buf = fs.readFileSync(dbPath);
   res.setHeader('Content-Type', 'application/octet-stream');
@@ -298,11 +298,11 @@ app.get('/api/export/db', requireAuth, (req, res) => {
 
 // ── 匯出完整備份（含資料庫與所有照片/影片）──
 app.get('/api/export/backup', requireAuth, (req, res) => {
-  const dbPath = path.join(__dirname, 'data', '肉鬆的生活日誌.db');
+  const dbPath = path.resolve(__dirname, 'data', '肉鬆的生活日誌.db');
   if (!fs.existsSync(dbPath)) return res.status(404).json({ error: 'DB not found' });
   const zip = new AdmZip();
   zip.addLocalFile(dbPath, 'data/肉鬆的生活日誌.db');
-  const uploadsDir = path.join(__dirname, 'uploads');
+  const uploadsDir = path.resolve(__dirname, 'uploads');
   if (fs.existsSync(uploadsDir)) {
     ['photos', 'videos', 'covers'].forEach(dir => {
       const dirPath = path.join(uploadsDir, dir);
@@ -338,13 +338,13 @@ app.post('/api/import/backup', requireAuth, backupUpload.single('backup'), async
         if (uploadPath.startsWith("uploads/")) {
           relativePath = uploadPath.substring("uploads/".length);
         }
-        const targetPath = path.join(__dirname, "uploads", relativePath);
+        const targetPath = path.resolve(__dirname, "uploads", relativePath);
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
         fs.writeFileSync(targetPath, Buffer.from(entry.getData()));
       });
     const avatarEntry = zip.getEntries().find(e => e.entryName === 'frontend/images/avatar.jpg');
     if (avatarEntry && !avatarEntry.directory) {
-      const avatarDir = path.join(__dirname, '../frontend/images');
+      const avatarDir = path.resolve(__dirname, '../frontend/images');
       fs.mkdirSync(avatarDir, { recursive: true });
       fs.writeFileSync(path.join(avatarDir, 'avatar.jpg'), Buffer.from(avatarEntry.getData()));
     }
@@ -367,5 +367,7 @@ async function main() {
   app.listen(PORT, () => console.log('肉鬆的生活日誌 -> http://localhost:' + PORT));
 }
 main().catch(console.error);
+
+
 
 
